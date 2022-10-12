@@ -11,4 +11,3 @@ else
 {
     echo "nie odnaleziono strony  /$url :(";
 }
-

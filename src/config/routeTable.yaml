@@ -2,9 +2,9 @@ main:
   path: ""
   controller: mainController
 images:
-  path: "images"
+  path: images
+  controller: imagesController
   add:
-  edit:
 user:
   path: user
   add:

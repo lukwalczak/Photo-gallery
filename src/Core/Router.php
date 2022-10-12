@@ -7,8 +7,7 @@ class Router
 
  private $parameters;
 
- protected const urlRegex = '/^$|\s+|([-a-z]+\/*)?([-a-z]+\/*)?(.*)?$/';
- protected const urlRegexs = "/^$|\s+|([-a-z]+\/*)([-a-z]+\/*)(.*)$/";
+ protected const urlRegex = "/^(?P<controller>$|\s+|[-a-z]+\/*)?(?P<action>[-a-z]+\/*)?(?P<parameters>.*)?$/";
 
  public function __construct()
  {
@@ -62,12 +61,9 @@ class Router
     {
         if (preg_match(self::urlRegex, $targetRoute, $output))
         {
-            echo '<pre>';
-            var_dump($output);
-            echo '</pre>';
             foreach ($this->getRouteTable() as $route)
             {
-                if ($route['path'] == $output[0])
+                if (empty($output['controller']) || $route['path']==$output['controller'])
                 {
                     $this->setParameters($output);
                     return true;
