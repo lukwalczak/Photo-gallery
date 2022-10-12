@@ -1,0 +1,10 @@
+main:
+  path: ""
+  controller: mainController
+images:
+  path: "images"
+  add:
+  edit:
+user:
+  path: user
+  add:
