@@ -7,27 +7,39 @@ class Router
 
  private $parameters;
 
+ private static $instances = [];
+
  protected const urlRegex = "/^(?P<controller>$|\s+|[-a-z]+\/*)?(?P<action>[-a-z]+\/*)?(?P<parameters>.*)?$/";
 
- public function __construct()
- {
-     $this->routeTable = $this->setRouteTable();
- }
+    private function __construct(){}
+
+    private function __clone(){}
+
+    private function __wakeup(){}
+
+    public static function getInstance(): Router
+    {
+        $cls = static::class;
+        if(isset(self::$instances)){
+           self::$instances[$cls] = new static();
+        }
+        return self::$instances[$cls];
+    }
 
     /**
-     * @param mixed $routeTable
-     */
-    public function setRouteTable(): array
+    * @param mixed $routeTable
+    */
+    public function setRouteTable(): void
     {
-        $f = dirname(__DIR__) . '/config/routeTable.yaml';
-        $t = yaml_parse_file($f);
-        return  $t;
+        $routeTableConfig = dirname(__DIR__) . '/config/routeTable.yaml';
+        $parsedRoutes = yaml_parse_file($routeTableConfig);
+        $this->routeTable = $parsedRoutes;
     }
 
     /**
      * @return mixed
      */
-    public function getRouteTable()
+    public function getRouteTable(): array
     {
         return $this->routeTable;
     }
@@ -43,12 +55,12 @@ class Router
     /**
      * @return mixed
      */
-    public function getParameters()
+    public function getParameters(): array
     {
         return $this->parameters;
     }
 
-    public function getCurrentPath()
+    public function getCurrentPath(): string
     {
     if ($this->getParameters()[0] == "")
     {
@@ -57,7 +69,7 @@ class Router
     return $this->getParameters()[0];
     }
 
-    public function matchURL($targetRoute)
+    public function matchURL($targetRoute): bool
     {
         if (preg_match(self::urlRegex, $targetRoute, $output))
         {
