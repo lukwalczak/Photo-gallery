@@ -1,10 +1,9 @@
-main:
+index:
   path: ""
-  controller: mainController
+  controller: MainController
 images:
   path: images
-  controller: imagesController
-  add:
+  controller: ImagesController
 user:
   path: user
-  add:
+  controller: UserController
