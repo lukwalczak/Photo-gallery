@@ -14,17 +14,17 @@ class Router
 
     private static $instances = [];
 
-    protected const urlRegex = "/^(?P<controller>$|\s+|[-a-z]+\/*)?(?P<action>[-a-z]+\/*)?(?P<parameters>.*)?$/";
+    protected const urlRegex = "/^(?P<controller>$|\s+|[-a-z]+)?[\\/]*(?P<action>[-a-z]+)?[\\/]*(?P<parameters>.*)$/";
 
-    private function __construct()
+    public function __construct()
     {
     }
 
-    private function __clone()
+    public function __clone()
     {
     }
 
-    private function __wakeup()
+    public function __wakeup()
     {
     }
 
@@ -82,20 +82,15 @@ class Router
 
     public function matchURL($targetRoute): bool
     {
-        var_dump($targetRoute);
-        echo "<br>";
-        $targetRoute = preg_replace('/\//', '\\/', $targetRoute);
-        var_dump($targetRoute);
-        echo "<br>";
         if (preg_match(self::urlRegex, $targetRoute, $output)) {
             foreach ($this->getRouteTable() as $route) {
                 if (empty($output['controller']) || $route['path'] == $output['controller']) {
                     $output["controller"] = $route["controller"];
                     $this->setParameters($output);
-                    var_dump($this->parameters);
                     if ($this->parameters["action"] == "") {
                         $this->parameters["action"] = "default";
                     }
+                    var_dump($this->parameters);
                     return true;
                 }
             }
@@ -107,15 +102,13 @@ class Router
     {
         if ($this->matchURL($url)) {
             $controller = $this->parameters["controller"];
-            if (class_exists($controller)) {
-                if (is_callable([$controller, $this->parameters["action"]])) {
-                    $action = $this->parameters["action"];
-                    $controller_obj = new $controller;
-                    $controller_obj->$action();
-                } else {
-                    echo "strona nie istnieje";
-                }
-            }
-        }
+            if (class_exists($controller) && is_callable([$controller, $this->parameters["action"]])) {
+                $action = $this->parameters["action"];
+                $controller_obj = new $controller;
+                $controller_obj->$action();
+            } else
+                echo "nie odnaleziono strony";
+        } else
+            echo "nie odnalzeiono strony";
     }
 }

@@ -6,4 +6,9 @@ class ImagesController
     {
         echo "default images action";
     }
+
+    public function add()
+    {
+        echo "add images action";
+    }
 }

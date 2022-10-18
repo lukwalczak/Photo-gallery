@@ -6,4 +6,9 @@ class MainController
     {
         echo "default main action";
     }
+
+    public function pageNotFound()
+    {
+        echo "page not Found";
+    }
 }
