@@ -82,13 +82,17 @@ class Router
 
     public function matchURL($targetRoute): bool
     {
+        var_dump($targetRoute);
+        echo "<br>";
         $targetRoute = preg_replace('/\//', '\\/', $targetRoute);
-
+        var_dump($targetRoute);
+        echo "<br>";
         if (preg_match(self::urlRegex, $targetRoute, $output)) {
             foreach ($this->getRouteTable() as $route) {
                 if (empty($output['controller']) || $route['path'] == $output['controller']) {
                     $output["controller"] = $route["controller"];
                     $this->setParameters($output);
+                    var_dump($this->parameters);
                     if ($this->parameters["action"] == "") {
                         $this->parameters["action"] = "default";
                     }
@@ -108,6 +112,8 @@ class Router
                     $action = $this->parameters["action"];
                     $controller_obj = new $controller;
                     $controller_obj->$action();
+                } else {
+                    echo "strona nie istnieje";
                 }
             }
         }
