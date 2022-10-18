@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-require(dirname(__DIR__) . '/controllers/MainController.php');
-require(dirname(__DIR__) . '/controllers/ImagesController.php');
+namespace Core;
+require(dirname(__DIR__) . '/Controllers/MainController.php');
+require(dirname(__DIR__) . '/Controllers/ImagesController.php');
 
 class Router
 {
@@ -43,7 +44,7 @@ class Router
      */
     public function setRouteTable(): void
     {
-        $routeTableConfig = dirname(__DIR__) . '/config/routeTable.yaml';
+        $routeTableConfig = dirname(dirname(__DIR__)) . '/config/routeTable.yaml';
         $parsedRoutes = yaml_parse_file($routeTableConfig);
         $this->routeTable = $parsedRoutes;
     }
@@ -90,7 +91,6 @@ class Router
                     if ($this->parameters["action"] == "") {
                         $this->parameters["action"] = "default";
                     }
-                    var_dump($this->parameters);
                     return true;
                 }
             }
@@ -102,6 +102,7 @@ class Router
     {
         if ($this->matchURL($url)) {
             $controller = $this->parameters["controller"];
+            $controller = "Controllers\\$controller";
             if (class_exists($controller) && is_callable([$controller, $this->parameters["action"]])) {
                 $action = $this->parameters["action"];
                 $controller_obj = new $controller;
