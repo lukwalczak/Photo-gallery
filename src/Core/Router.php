@@ -3,8 +3,6 @@
 declare(strict_types=1);
 
 namespace Core;
-require(dirname(__DIR__) . '/Controllers/MainController.php');
-require(dirname(__DIR__) . '/Controllers/ImagesController.php');
 
 class Router
 {
