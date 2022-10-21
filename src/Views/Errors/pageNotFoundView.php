@@ -9,8 +9,8 @@
 </head>
 <body>
 <h1>
-    THIS IS DEFAULT SITE
+    Site Not Found
+    KURWAA
 </h1>
-<?php echo "Witaj Świecie!"; ?>
 </body>
 </html>

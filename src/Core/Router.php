@@ -15,7 +15,7 @@ class Router
 
     private static $instances = [];
 
-    protected const urlRegex = "/^(?P<controller>$|\s+|[-a-z]+)?[\\/]*(?P<action>[-a-z]+)?[\\/]*(?P<parameters>.*)$/";
+    private const urlRegex = "/^(?P<controller>$|\s+|[-a-z]+)?[\\/]*(?P<action>[-a-z]+)?[\\/]*(?P<parameters>.*)$/";
 
     public function __construct()
     {
@@ -105,7 +105,7 @@ class Router
             $controller = "Controllers\\$controller";
             if (class_exists($controller) && is_callable([$controller, $this->parameters["action"]])) {
                 $action = $this->parameters["action"];
-                $controller_obj = new $controller;
+                $controller_obj = new $controller($this->parameters);
                 $controller_obj->$action();
             } else {
                 $this->pageNotFoundDispatch($url);

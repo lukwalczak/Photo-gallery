@@ -2,15 +2,35 @@
 declare(strict_types=1);
 
 namespace Controllers;
-class MainController extends AbstractController
+
+use Core\View;
+
+class MainController
 {
-    public function default()
+    private $params;
+
+    public function __construct($passedParameters = [])
     {
-        echo "default main action";
+        $this->params = $passedParameters;
     }
 
-    public function pageNotFound($url)
+    public function getParams()
     {
-        echo "page " . $url . " not found";
+        return $this->params;
+    }
+
+    public function setParams($params): void
+    {
+        $this->params = $params;
+    }
+
+    public function default()
+    {
+        echo View::render('index');
+    }
+
+    public static function pageNotFound()
+    {
+        echo View::render("Errors/pageNotFound");
     }
 }

@@ -2,15 +2,35 @@
 declare(strict_types=1);
 
 namespace Controllers;
-class ImagesController extends AbstractController
+
+use Core\View;
+
+class ImagesController
 {
+    private $params;
+
+    public function __construct($passedParameters = [])
+    {
+        $this->params = $passedParameters;
+    }
+
+    public function getParams()
+    {
+        return $this->params;
+    }
+
+    public function setParams($params): void
+    {
+        $this->params = $params;
+    }
+
     public function default()
     {
-        echo "default images action";
+        View::render("default", $this->getParams());
     }
 
     public function add()
     {
-        echo "add images action";
+        View::render("add", $this->getParams());
     }
 }
