@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 namespace Controllers;
-class ImagesController
+class ImagesController extends AbstractController
 {
     public function default()
     {

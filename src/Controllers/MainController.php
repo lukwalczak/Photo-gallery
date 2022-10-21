@@ -2,15 +2,15 @@
 declare(strict_types=1);
 
 namespace Controllers;
-class MainController
+class MainController extends AbstractController
 {
     public function default()
     {
         echo "default main action";
     }
 
-    public function pageNotFound()
+    public function pageNotFound($url)
     {
-        echo "page not Found";
+        echo "page " . $url . " not found";
     }
 }

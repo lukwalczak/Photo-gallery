@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Core;
 
+use Controllers\MainController;
+
 class Router
 {
 
@@ -96,7 +98,7 @@ class Router
         return false;
     }
 
-    public function dispatch($url)
+    public function dispatch($url): void
     {
         if ($this->matchURL($url)) {
             $controller = $this->parameters["controller"];
@@ -105,9 +107,17 @@ class Router
                 $action = $this->parameters["action"];
                 $controller_obj = new $controller;
                 $controller_obj->$action();
-            } else
-                echo "nie odnaleziono strony";
-        } else
-            echo "nie odnalzeiono strony";
+            } else {
+                $this->pageNotFoundDispatch($url);
+            }
+        } else {
+            $this->pageNotFoundDispatch($url);
+        }
+    }
+
+    public function pageNotFoundDispatch($url): void
+    {
+        $controller = new MainController;
+        $controller->pageNotFound($url);
     }
 }
