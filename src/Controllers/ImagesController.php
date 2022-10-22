@@ -9,6 +9,8 @@ class ImagesController
 {
     private $params;
 
+    private $viewPath = "Images/";
+
     public function __construct($passedParameters = [])
     {
         $this->params = $passedParameters;
@@ -24,13 +26,13 @@ class ImagesController
         $this->params = $params;
     }
 
-    public function default()
+    public function index()
     {
-        View::render("default", $this->getParams());
+        echo View::render($this->viewPath . "index", $this->getParams());
     }
 
     public function add()
     {
-        View::render("add", $this->getParams());
+        echo View::render($this->viewPath . "add", $this->getParams());
     }
 }

@@ -89,7 +89,7 @@ class Router
                     $output["controller"] = $route["controller"];
                     $this->setParameters($output);
                     if ($this->parameters["action"] == "") {
-                        $this->parameters["action"] = "default";
+                        $this->parameters["action"] = "index";
                     }
                     return true;
                 }
