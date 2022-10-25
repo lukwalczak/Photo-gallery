@@ -73,17 +73,10 @@ class Router
         return $this->parameters;
     }
 
-    public function getCurrentPath(): string
-    {
-        if ($this->getParameters()[0] == "") {
-            return "/";
-        }
-        return $this->getParameters()[0];
-    }
-
     public function matchURL($targetRoute): bool
     {
         if (preg_match(self::urlRegex, $targetRoute, $output)) {
+            $output = $this->dropNumericKeys($output);
             foreach ($this->getRouteTable() as $route) {
                 if (empty($output['controller']) || $route['path'] == $output['controller']) {
                     $output["controller"] = $route["controller"];
@@ -91,6 +84,7 @@ class Router
                     if ($this->parameters["action"] == "") {
                         $this->parameters["action"] = "index";
                     }
+                    var_dump($this->parameters);
                     return true;
                 }
             }
@@ -120,4 +114,15 @@ class Router
         $controller = new MainController;
         $controller->pageNotFound($url);
     }
+
+    private function dropNumericKeys($array): array
+    {
+        foreach ($array as $key => $value) {
+            if (is_int($key)) {
+                unset($array[$key]);
+            }
+        }
+        return $array;
+    }
 }
+

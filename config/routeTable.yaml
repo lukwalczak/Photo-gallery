@@ -2,8 +2,8 @@ index:
   path: ""
   controller: MainController
 images:
-  path: images
+  path: "images"
   controller: ImagesController
 user:
-  path: user
+  path: "user"
   controller: UserController

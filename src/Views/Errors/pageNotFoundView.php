@@ -10,7 +10,6 @@
 <body>
 <h1>
     Site Not Found
-    KURWAA
 </h1>
 </body>
 </html>
