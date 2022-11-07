@@ -8,6 +8,5 @@ spl_autoload_register(function ($class) {
     }
 });
 
-$url = $_SERVER['QUERY_STRING'];
-$router = Core\Router::getInstance();
-$router->dispatch($url);
+$app = new \Core\App();
+$app->startApp();

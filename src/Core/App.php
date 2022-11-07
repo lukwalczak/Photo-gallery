@@ -4,16 +4,17 @@ namespace Core;
 
 class App
 {
+    private $router;
+    private $db;
+
     public function __construct()
     {
-
+        $this->router = Router::getInstance();
     }
 
-    public static function startApp()
+    public function startApp()
     {
-        AutoLoader::autoload();
-        $router = Router::getInstance();
-        $router->dispatch($_SERVER["QUERY_STRING"]);
+        $this->router->dispatch($_SERVER["QUERY_STRING"]);
     }
 
 }

@@ -84,7 +84,6 @@ class Router
                     if ($this->parameters["action"] == "") {
                         $this->parameters["action"] = "index";
                     }
-                    var_dump($this->parameters);
                     return true;
                 }
             }
