@@ -24,9 +24,14 @@ class MainController
         $this->params = $params;
     }
 
-    public function default()
+    public function index()
     {
         echo View::render('index');
+    }
+
+    public function add()
+    {
+        echo "DUPA";
     }
 
     public static function pageNotFound()

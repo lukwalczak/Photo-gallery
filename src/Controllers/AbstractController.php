@@ -4,7 +4,7 @@ namespace Controllers;
 
 abstract class AbstractController
 {
-    protected $params = [];
+    private $params;
 
     public function __construct($passedParameters = [])
     {
