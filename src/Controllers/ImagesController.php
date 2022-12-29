@@ -5,26 +5,10 @@ namespace Controllers;
 
 use Core\View;
 
-class ImagesController
+class ImagesController extends AbstractController
 {
-    private $params;
 
     private $viewPath = "Images/";
-
-    public function __construct($passedParameters = [])
-    {
-        $this->params = $passedParameters;
-    }
-
-    public function getParams()
-    {
-        return $this->params;
-    }
-
-    public function setParams($params): void
-    {
-        $this->params = $params;
-    }
 
     public function index()
     {
@@ -33,6 +17,8 @@ class ImagesController
 
     public function add()
     {
-        echo View::render($this->viewPath . "add", $this->getParams());
+        $user = parent::model('User');
+        $user->name = "aleks";
+        $this->view($this->viewPath . 'add', ['name' => $user->name]);
     }
 }

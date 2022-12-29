@@ -11,6 +11,9 @@
 <h1>
     THIS IS DEFAULT SITE
 </h1>
-<?php echo "Witaj Świecie z addView!"; ?>
+<?php
+echo "Witaj Świecie z addView!";
+echo $data['name'];
+?>
 </body>
 </html>

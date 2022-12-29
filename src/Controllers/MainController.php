@@ -9,22 +9,7 @@ class MainController
 {
     private $params;
 
-    public function __construct($passedParameters = [])
-    {
-        $this->params = $passedParameters;
-    }
-
-    public function getParams()
-    {
-        return $this->params;
-    }
-
-    public function setParams($params): void
-    {
-        $this->params = $params;
-    }
-
-    public function default()
+    public function index()
     {
         echo View::render('index');
     }

@@ -44,7 +44,7 @@ class Router
      */
     public function setRouteTable(): void
     {
-        $routeTableConfig = dirname(dirname(__DIR__)) . '/config/routeTable.yaml';
+        $routeTableConfig = dirname(__DIR__, 2) . "/config/routeTable.yaml";
         $parsedRoutes = yaml_parse_file($routeTableConfig);
         $this->routeTable = $parsedRoutes;
     }
@@ -78,7 +78,7 @@ class Router
         if (preg_match(self::urlRegex, $targetRoute, $output)) {
             $output = $this->dropNumericKeys($output);
             foreach ($this->getRouteTable() as $route) {
-                if (empty($output['controller']) || $route['path'] == $output['controller']) {
+                if (empty($output["controller"]) || $route["path"] == $output["controller"]) {
                     $output["controller"] = $route["controller"];
                     $this->setParameters($output);
                     if ($this->parameters["action"] == "") {
@@ -98,8 +98,8 @@ class Router
             $controller = "Controllers\\$controller";
             if (class_exists($controller) && is_callable([$controller, $this->parameters["action"]])) {
                 $action = $this->parameters["action"];
-                $controller_obj = new $controller($this->parameters);
-                $controller_obj->$action();
+                $controllerObj = new $controller($this->parameters);
+                $controllerObj->$action();
             } else {
                 $this->pageNotFoundDispatch($url);
             }

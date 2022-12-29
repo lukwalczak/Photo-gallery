@@ -11,6 +11,6 @@
 <h1>
     THIS IS DEFAULT SITE
 </h1>
-<?php echo "Witaj Świecie! X"; ?>
+<?php echo "Witaj Świecie! images index"; ?>
 </body>
 </html>
