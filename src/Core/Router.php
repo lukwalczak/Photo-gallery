@@ -39,9 +39,6 @@ class Router
         return self::$instances[$cls];
     }
 
-    /**
-     * @param mixed $routeTable
-     */
     public function setRouteTable(): void
     {
         $routeTableConfig = dirname(__DIR__, 2) . "/config/routeTable.yaml";
@@ -49,31 +46,22 @@ class Router
         $this->routeTable = $parsedRoutes;
     }
 
-    /**
-     * @return mixed
-     */
     public function getRouteTable(): array
     {
         return $this->routeTable;
     }
 
-    /**
-     * @param mixed $parameters
-     */
-    public function setParameters($parameters): void
+    public function setParameters(array $parameters): void
     {
         $this->parameters = $parameters;
     }
 
-    /**
-     * @return mixed
-     */
     public function getParameters(): array
     {
         return $this->parameters;
     }
 
-    public function matchURL($targetRoute): bool
+    public function matchURL(string $targetRoute): bool
     {
         if (preg_match(self::urlRegex, $targetRoute, $output)) {
             $output = $this->dropNumericKeys($output);
@@ -92,7 +80,7 @@ class Router
         return false;
     }
 
-    public function dispatch($url): void
+    public function dispatch(string $url): void
     {
         if (!$this->matchURL($url)) {
             $this->pageNotFoundDispatch();
@@ -129,7 +117,7 @@ class Router
         $controller->pageNotFound();
     }
 
-    private function dropNumericKeys($array): array
+    private function dropNumericKeys(array $array): array
     {
         foreach ($array as $key => $value) {
             if (is_int($key)) {

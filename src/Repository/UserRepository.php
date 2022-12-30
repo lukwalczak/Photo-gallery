@@ -7,28 +7,36 @@ use \Models as Models;
 
 class UserRepository extends AbstractRepository
 {
-    public function getUserById($id)
+    public function getUserById(string $id): \Models\User
     {
         $query = new Mongo\Query(["_id" => $id]);
         $dataObject = $this->mongoManager->executeQuery($this->userCollection, $query)->toArray()[0];
         $username = $dataObject->username;
         $passwordHash = $dataObject->passwordHash;
         $email = $dataObject->email;
-        $user = new Models\User();
+        $user = new Models\User($username, $email, $passwordHash);
         return $user;
     }
 
-    public function getUserByName($id)
+    public function getUserByName(string $username)
     {
-        $query = new Mongo\Query(["_id" => $id]);
+        $query = new Mongo\Query(["username" => $username]);
         $dataObject = $this->mongoManager->executeQuery($this->userCollection, $query)->toArray()[0];
+        $username = $dataObject->username;
+        $passwordHash = $dataObject->passwordHash;
+        $email = $dataObject->email;
+        $user = new Models\User($username, $email, $passwordHash);
         return $dataObject;
     }
 
-    public function addUser($id)
+    public function addUser(Models\User $user): bool
     {
-        $query = new Mongo\Query(["id" => $id]);
-        $dataObject = $this->mongoManager->executeQuery($this->userCollection, $query)->toArray()[0];
-        return $dataObject;
+        $bulk = new Mongo\BulkWrite();
+        $bulk->insert($user->toArray());
+        $result = $this->mongoManager->executeBulkWrite($this->userCollection, $bulk);
+        if ($result->getInsertedCount() == 0) {
+            return false;
+        }
+        return true;
     }
 }
