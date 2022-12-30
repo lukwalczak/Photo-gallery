@@ -3,19 +3,16 @@ declare(strict_types=1);
 
 namespace Controllers;
 
-use Core\View;
-
-class MainController
+class MainController extends AbstractController
 {
-    private $params;
 
     public function index()
     {
-        echo View::render('index');
+        $this->view('index');
     }
 
-    public static function pageNotFound()
+    public function pageNotFound()
     {
-        echo View::render("Errors/pageNotFound");
+        $this->view("Errors/pageNotFound");
     }
 }

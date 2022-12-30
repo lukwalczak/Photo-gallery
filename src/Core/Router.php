@@ -80,6 +80,7 @@ class Router
             foreach ($this->getRouteTable() as $route) {
                 if (empty($output["controller"]) || $route["path"] == $output["controller"]) {
                     $output["controller"] = $route["controller"];
+                    $output["repository"] = $route["repository"];
                     $this->setParameters($output);
                     if ($this->parameters["action"] == "") {
                         $this->parameters["action"] = "index";
@@ -93,25 +94,39 @@ class Router
 
     public function dispatch($url): void
     {
-        if ($this->matchURL($url)) {
-            $controller = $this->parameters["controller"];
-            $controller = "Controllers\\$controller";
-            if (class_exists($controller) && is_callable([$controller, $this->parameters["action"]])) {
-                $action = $this->parameters["action"];
-                $controllerObj = new $controller($this->parameters);
-                $controllerObj->$action();
-            } else {
-                $this->pageNotFoundDispatch($url);
-            }
-        } else {
-            $this->pageNotFoundDispatch($url);
+        if (!$this->matchURL($url)) {
+            $this->pageNotFoundDispatch();
+            return;
         }
+        $controller = $this->parameters["controller"];
+        $controller = "Controllers\\$controller";
+        if (!(class_exists($controller) && is_callable([$controller, $this->parameters["action"]]))) {
+            $this->pageNotFoundDispatch();
+            return;
+        }
+        $repository = $this->parameters["repository"];
+        $repository = "Repository\\$repository";
+        if (!(class_exists($repository))) {
+            $repositoryObj = "";
+        } else {
+            $repositoryObj = new $repository();
+        }
+        $action = $this->parameters["action"];
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {
+            $controllerObj = new $controller($this->parameters, $repositoryObj);
+            $controllerObj->$action();
+        } elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $controllerObj = new $controller($_POST, $repositoryObj);
+            $controllerObj->$action();
+        }
+
+
     }
 
-    public function pageNotFoundDispatch($url): void
+    public function pageNotFoundDispatch(): void
     {
         $controller = new MainController;
-        $controller->pageNotFound($url);
+        $controller->pageNotFound();
     }
 
     private function dropNumericKeys($array): array

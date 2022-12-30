@@ -1,9 +1,12 @@
 index:
   path: ""
   controller: MainController
-images:
-  path: "images"
-  controller: ImagesController
+  repository: ""
 user:
   path: "user"
   controller: UserController
+  repository: UserRepository
+images:
+  path: "images"
+  controller: ImagesController
+  repository: ImagesRepository

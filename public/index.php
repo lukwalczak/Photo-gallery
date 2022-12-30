@@ -7,6 +7,5 @@ spl_autoload_register(function ($class) {
         require $rootFolder . '/' . str_replace('\\', '/', $class) . '.php';
     }
 });
-define('CSS_PATH', 'http://localhost/public/css/');
 $app = new \Core\App();
 $app->startApp();

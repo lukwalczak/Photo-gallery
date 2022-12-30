@@ -12,7 +12,7 @@
 <div class="wrapper">
     <div class="header">
 
-        <a class="gallery-name">
+        <a class="gallery-name" href="http://192.168.56.10:8080/">
             Image Gallery
         </a>
 

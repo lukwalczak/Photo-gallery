@@ -5,21 +5,24 @@ namespace Controllers;
 
 abstract class AbstractController
 {
-    private $params;
+    public $data;
 
-    public function __construct($passedParameters = [])
+    protected $repository;
+
+    public function __construct($data = [], $repository = "")
     {
-        $this->params = $passedParameters;
+        $this->data = $data;
+        $this->repository = $repository;
     }
 
-    public function getParams()
+    public function getData()
     {
-        return $this->params;
+        return $this->data;
     }
 
-    public function setParams($params): void
+    public function setData($data): void
     {
-        $this->params = $params;
+        $this->data = $data;
     }
 
     public function model($model)
