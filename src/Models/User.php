@@ -8,21 +8,16 @@ class User
     private $email;
     private $passwordHash;
 
-    public function __construct($username, $email, $passwordHash)
+    public function setUsername($username): self
     {
         $this->username = $username;
-        $this->email = $email;
-        $this->passwordHash = $passwordHash;
+        return $this;
     }
 
-    public function setUsername($username): void
-    {
-        $this->username = $username;
-    }
-
-    public function setEmail($email): void
+    public function setEmail($email): self
     {
         $this->email = $email;
+        return $this;
     }
 
     public function getEmail(): string
@@ -35,9 +30,10 @@ class User
         return $this->passwordHash;
     }
 
-    public function setPasswordHash($passwordHash): void
+    public function setPasswordHash($passwordHash): self
     {
         $this->passwordHash = $passwordHash;
+        return $this;
     }
 
     public function getUsername(): string
@@ -52,7 +48,7 @@ class User
         $this->passwordHash = $passwordHash;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return ["username" => $this->username, "email" => $this->email, "passwordHash" => $this->passwordHash];
     }

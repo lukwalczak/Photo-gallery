@@ -14,7 +14,10 @@ class UserRepository extends AbstractRepository
         $username = $dataObject->username;
         $passwordHash = $dataObject->passwordHash;
         $email = $dataObject->email;
-        $user = new Models\User($username, $email, $passwordHash);
+        $user = new Models\User();
+        $user->setUsername($username)
+            ->setEmail($email)
+            ->setPasswordHash($passwordHash);
         return $user;
     }
 
@@ -28,7 +31,11 @@ class UserRepository extends AbstractRepository
         $username = $dataObject[0]->username;
         $passwordHash = $dataObject[0]->passwordHash;
         $email = $dataObject[0]->email;
-        return new Models\User($username, $email, $passwordHash);
+        $user = new Models\User();
+        $user->setUsername($username)
+            ->setEmail($email)
+            ->setPasswordHash($passwordHash);
+        return $user;
     }
 
     public function addUser(Models\User $user): bool

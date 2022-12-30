@@ -25,6 +25,7 @@
     <div class="content">
         <form method="POST" enctype="multipart/form-data">
             <input type="file" name="upfile" accept="image/*"/>
+            <input type="text" name="watermarkText"/>
             <button type="submit" name="save" class="btn">WYSLIJ</button>
         </form>
     </div>

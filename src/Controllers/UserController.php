@@ -23,7 +23,7 @@ class UserController extends AbstractController
         $passwordHash = password_hash($this->data["password"], PASSWORD_DEFAULT);
         $_SESSION["registered"] = true;
         $user = parent::model("User");
-        $user->setParameters($username, $email, $passwordHash);
+        $user->setProperties($username, $email, $passwordHash);
         if (!$this->repository->addUser($user)) {
             $this->view($this->viewPath . 'register', ["response" => "error"]);
             return;
