@@ -23,6 +23,9 @@
         </div>
     </div>
     <div class="content">
+        <?php if (!empty($data["response"])) {
+            echo $data["response"];
+        } ?>
         <form method="POST">
             <input type="text" name="username"/>
             <input type="email" name="email"/>

@@ -23,6 +23,11 @@
         </div>
     </div>
     <div class="content">
+        <form method="POST">
+            <input type="text" name="username"/>
+            <input type="password" name="password"/>
+            <button type="submit" class="btn">WYSLIJ</button>
+        </form>
     </div>
 </div>
 </body>

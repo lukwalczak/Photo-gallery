@@ -45,7 +45,7 @@ class User
         return $this->username;
     }
 
-    public function setProperties($passwordHash, $username, $email): void
+    public function setProperties($username, $email, $passwordHash): void
     {
         $this->username = $username;
         $this->email = $email;

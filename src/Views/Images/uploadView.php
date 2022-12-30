@@ -23,6 +23,10 @@
         </div>
     </div>
     <div class="content">
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="upfile" accept="image/*"/>
+            <button type="submit" name="save" class="btn">WYSLIJ</button>
+        </form>
     </div>
 </div>
 </body>
