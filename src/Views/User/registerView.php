@@ -36,10 +36,16 @@
             echo "something went wrong";
         }
         ?>
-        <form method="POST">
-            <input type="text" name="username"/>
-            <input type="email" name="email"/>
-            <input type="password" name="password"/>
+        <form method="POST" class="form-input">
+            <label>
+                <input type="text" name="username"/>Username
+            </label>
+            <label>
+                <input type="email" name="email"/>Email
+            </label>
+            <label>
+                <input type="password" name="password"/>Password
+            </label>
             <button type="submit" class="btn">WYSLIJ</button>
         </form>
     </div>

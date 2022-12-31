@@ -30,23 +30,41 @@
         </div>
     </div>
     <div class="content">
-        <form method="POST" enctype="multipart/form-data">
-            <span>image file</span>
-            <input type="file" name="upfile" accept="image/*"/>
-            <span>title</span>
-            <input type="text" name="title"/>
-            <span>author</span>
-            <input type="text" name="author"/>
-            <span>Watermark Text</span>
-            <input type="text" name="watermarkText"/>
+        <form method="POST" enctype="multipart/form-data" class="form-input">
+            <label>
+                <input type="file" name="upfile" accept="image/*"/>Image File
+            </label>
+            <label>
+                <input type="text" name="title"/>Title
+            </label>
+            <label>
+                <input type="text" name="watermarkText"/>Watermark
+            </label>
             <?php
             if (!empty($_SESSION["logged"]) && $_SESSION["logged"] == true) {
+                $username = $_SESSION["user"]->getUsername();
                 echo "<span>Set image as private</span>
-                      <input type=\"checkbox\" name=\"private\" value='true'/>";
+                      <label>
+                      <input type=\"radio\" name=\"private\" value=\"true\"> Yes
+                      </label>
+                      <label>
+                      <input type=\"radio\" name=\"private\" value=\"false\" checked=\"checked\"> No
+                      </label>
+                      <label>
+                      <input type=\"text\" name=\"author\" value=\"$username\"/> Author
+                      </label>";
+            } else {
+                echo "<label>
+                        <input type=\"text\" name=\"author\"/>Author
+                      </label>";
             }
             ?>
             <button type="submit" name="save" class="btn">WYSLIJ</button>
         </form>
+        <?php
+        if (isset($response->getData()["error"]))
+            echo $response->getData()["error"];
+        ?>
     </div>
 </div>
 </body>

@@ -105,3 +105,28 @@
     align-items: center;
     justify-content: center;
 }
+
+.form-input {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    margin-top: 2vh;
+    height: 30vh;
+    width: 20vw;
+}
+
+.form-input label input {
+    margin: 1vh;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.form-input .btn {
+    margin: 1vh;
+}

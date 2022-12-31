@@ -10,17 +10,30 @@ class ImagesController extends AbstractController
 
     private $viewPath = "Images/";
 
-    public function upload()
+    public function upload(): void
     {
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {
+            $this->view($this->viewPath . "upload", new Response(200, []));
+            return;
+        }
         // dir to save images to
         $targetDir = dirname(__DIR__, 2) . "/public/images";
         try {
-            //checks if any errors occured or if file is empty
+            //checks if any errors occured or if file is empty or variables are not set
             if (
                 !isset($_FILES["upfile"]["error"]) ||
-                is_array($_FILES["upfile"]["error"])
+                is_array($_FILES["upfile"]["error"]) ||
+                empty($this->data["title"]) ||
+                empty($this->data["watermarkText"]) ||
+                empty($this->data["author"])
             ) {
                 throw new \RuntimeException("Invalid parameters");
+            }
+
+            if (empty($this->data["private"]) || $this->data["private"] == "false") {
+                $this->data["private"] = false;
+            } else {
+                $this->data["private"] = true;
             }
             //checks if any errors occured during uploading
             switch ($_FILES['upfile']['error']) {
@@ -51,7 +64,7 @@ class ImagesController extends AbstractController
                 throw new \RuntimeException('Invalid file format.');
             }
             //file name on server gets randomized using random and sha encoding
-            $filename = sha1_file($_FILES['upfile']['tmp_name']) . rand(0, 1000);
+            $filename = sha1_file($_FILES['upfile']['tmp_name']) . rand(0, 100000);
             if (!move_uploaded_file($_FILES['upfile']['tmp_name'], sprintf('%s/%s.%s', $targetDir, $filename, $ext)
             )) {
                 throw new \RuntimeException('Failed to move uploaded file.');
@@ -66,27 +79,22 @@ class ImagesController extends AbstractController
         } else {
             $name = substr($_FILES["upfile"]["tmp_name"], 5);
         }
-        var_dump($this->data["author"]);
-        var_dump($this->data["private"]);
-        $privacy = false;
-        $author = "anonymous";
         $image = parent::model("Image");
         $image->setName($name)
             ->setFilename($filename . "." . $ext)
-            ->setAuthor($author)
-            ->setPrivacy($privacy)
+            ->setAuthor($this->data["author"])
+            ->setPrivacy($this->data["private"])
             ->setExt($ext);
         try {
             if (!$this->repository->uploadImage($image)) {
-                $this->view($this->viewPath . "upload", new Response(400, ["error" => "something went wrong"]));
-                return;
+                throw new \RuntimeException('Failed to upload image');
             }
         } catch (\Exception $e) {
             $this->view($this->viewPath . "upload", new Response(400, ["error" => $e->getMessage()]));
             return;
         }
         $this->addMinature($filename, $ext);
-        $watermarkText = $_POST["watermarkText"];
+        $watermarkText = $this->data["watermarkText"];
         if (empty($watermarkText)) {
             $this->addWatermark($filename, $ext);
         } else {

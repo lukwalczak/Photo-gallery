@@ -35,7 +35,14 @@ class MainController extends AbstractController
             if (empty($imagesArray[$i])) {
                 break;
             }
-            array_push($helperArray, $imagesArray[$i]);
+            if ($imagesArray[$i]["privacy"] == false) {
+                array_push($helperArray, $imagesArray[$i]);
+            } elseif (!empty($_SESSION["logged"]) && $_SESSION["logged"] == true && !empty($_SESSION["user"])) {
+                $user = $_SESSION["user"];
+                if ($user->getUsername() == $imagesArray[$i]["author"]) {
+                    array_push($helperArray, $imagesArray[$i]);
+                }
+            }
         }
         $imagesArray = $helperArray;
         $pageInfo = ["page" => $page, "maxPages" => $maxPages];
