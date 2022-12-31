@@ -76,10 +76,11 @@ class ImagesController extends AbstractController
             return;
         }
         $this->addMinature($filename, $ext);
-        if ($_POST["watermarkText"]) {
-            $this->addWatermark($filename, $ext, $_POST["watermarkText"]);
-        } else {
+        $watermarkText = $_POST["watermarkText"];
+        if (empty($watermarkText)) {
             $this->addWatermark($filename, $ext);
+        } else {
+            $this->addWatermark($filename, $ext, $watermarkText);
         }
         $this->view($this->viewPath . "upload", ["message" => "file uploaded correctly"]);
 
@@ -123,21 +124,24 @@ class ImagesController extends AbstractController
     private function addWatermark($srcName, $ext, $text = "")
     {
         $srcDir = dirname(__DIR__, 2) . "/public/images";
-        $targetDir = dirname(__DIR__, 2) . "/public/images/miniatures";
+        $targetDir = dirname(__DIR__, 2) . "/public/images/watermarks";
         $targetImagePath = sprintf("%s/%s.miniature.%s", $targetDir, $srcName, $ext);
         $srcImagePath = sprintf("%s/%s.%s", $srcDir, $srcName, $ext);
+        $fontFile = dirname(__DIR__, 2) . "/public/assets/fonts/OpenSansRegular.ttf";
+        $fontSize = 24;
         switch ($ext) {
             case("png"):
-                $srcImage = imagecreatefrompng($srcImagePath);
+                $targetImage = imagecreatefrompng($srcImagePath);
                 break;
             case("jpg"):
-                $srcImage = imagecreatefromjpeg($srcImagePath);
+                $targetImage = imagecreatefromjpeg($srcImagePath);
                 break;
         }
-        $srcWidth = imagesx($srcImage);
-        $srcHeight = imagesy($srcImage);
-        $targetImage = imagecreatetruecolor($srcWidth, $srcHeight);
-
+        $fontColor = imagecolorallocate($targetImage, 125, 125, 125);
+        $posX = 0;
+        $posY = $fontSize;
+        $angle = 0;
+        imagettftext($targetImage, $fontSize, $angle, $posX, $posY, $fontColor, $fontFile, $text);
         switch ($ext) {
             case("png"):
                 imagepng($targetImage, $targetImagePath);
@@ -146,5 +150,6 @@ class ImagesController extends AbstractController
                 imagejpeg($targetImage, $targetImagePath);
                 break;
         }
+
     }
 }

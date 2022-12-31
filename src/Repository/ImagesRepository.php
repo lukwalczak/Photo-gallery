@@ -17,4 +17,14 @@ class ImagesRepository extends AbstractRepository
         }
         return true;
     }
+
+    public function downloadAllImages()
+    {
+        $query = new Mongo\Query([]);
+        $dataObject = $this->mongoManager->executeQuery($this->imagesCollection, $query)->toArray();
+        if (!boolval($dataObject)) {
+            return false;
+        }
+        return $dataObject;
+    }
 }
