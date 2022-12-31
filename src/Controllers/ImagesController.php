@@ -96,7 +96,7 @@ class ImagesController extends AbstractController
     {
         $srcDir = dirname(__DIR__, 2) . "/public/images";
         $targetDir = dirname(__DIR__, 2) . "/public/images/miniatures";
-        $targetImagePath = sprintf("%s/%s.miniature.%s", $targetDir, $srcName, $ext);
+        $targetImagePath = sprintf("%s/miniature%s.%s", $targetDir, $srcName, $ext);
         $srcImagePath = sprintf("%s/%s.%s", $srcDir, $srcName, $ext);
         switch ($ext) {
             case("png"):

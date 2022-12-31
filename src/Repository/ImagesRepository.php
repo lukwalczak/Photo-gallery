@@ -25,6 +25,10 @@ class ImagesRepository extends AbstractRepository
         if (!boolval($dataObject)) {
             return false;
         }
-        return $dataObject;
+        $imagesArray = [];
+        foreach ($dataObject as $image) {
+            array_push($imagesArray, ["name" => $image->name, "filename" => $image->filename, "privacy" => $image->privacy, "author" => $image->author]);
+        }
+        return $imagesArray;
     }
 }

@@ -24,13 +24,13 @@ class UserRepository extends AbstractRepository
     public function getUserByName(string $username)
     {
         $query = new Mongo\Query(["username" => $username]);
-        $dataObject = $this->mongoManager->executeQuery($this->userCollection, $query)->toArray();
+        $dataObject = $this->mongoManager->executeQuery($this->userCollection, $query)->toArray()[0];
         if (!boolval($dataObject)) {
             return false;
         }
-        $username = $dataObject[0]->username;
-        $passwordHash = $dataObject[0]->passwordHash;
-        $email = $dataObject[0]->email;
+        $username = $dataObject->username;
+        $passwordHash = $dataObject->passwordHash;
+        $email = $dataObject->email;
         $user = new Models\User();
         $user->setUsername($username)
             ->setEmail($email)

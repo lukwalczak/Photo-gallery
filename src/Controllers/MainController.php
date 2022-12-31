@@ -12,7 +12,7 @@ class MainController extends AbstractController
     {
         $this->repository = new ImagesRepository();
         $imagesArray = $this->repository->downloadAllImages();
-        $this->view('index');
+        $this->view('index', $imagesArray);
     }
 
     public function pageNotFound()

@@ -26,8 +26,11 @@
         <div class="searchbar"></div>
         <div class="image-wrapper">
             <?php
-            for ($i = 0; $i < 10; $i++) {
-                echo '<img class="image" src="/assets/img/image.png" alt="image">';
+            if (!empty($data)) {
+                foreach ($data as $image) {
+                    $filename = "miniature" . $image["filename"];
+                    echo "<img class='image' src=\"/images/miniatures/$filename\" alt=\"image\">";
+                }
             }
             ?>
         </div>
