@@ -12,26 +12,36 @@
 <div class="wrapper">
     <div class="header">
 
-        <a class="gallery-name" href="http://192.168.56.10:8080/">
+        <a class="gallery-name" href="/">
             Image Gallery
         </a>
 
         <div class="btn-wrapper">
-            <a class="btn btn-primary" href="http://192.168.56.10:8080/images/upload">Upload File</a>
-            <a class="btn btn-primary" href="http://192.168.56.10:8080/user/register">Register</a>
-            <a class="btn btn-primary" href="http://192.168.56.10:8080/user/login">Login in</a>
+            <a class="btn btn-primary" href="/images/upload">Upload File</a>
+            <a class="btn btn-primary" href="/user/register">Register</a>
+            <a class="btn btn-primary" href="/user/login">Login in</a>
         </div>
     </div>
     <div class="content">
         <div class="searchbarwrapper"><input class="searchbar" type="text"/></div>
-        <div class=""></div>
+        <?php
+        $nextPage = $data["pageInfo"]["page"] + 1;
+        $previousPage = $data["pageInfo"]["page"] - 1;
+        if ($data["pageInfo"]["maxPages"] != $data["pageInfo"]["page"]) {
+            echo "<a class=\"btn btn-secondary\" href=\"??page=$nextPage\">Next Page</a>";
+        }
+        if ($previousPage > 0) {
+            echo "<a class=\"btn btn-secondary\" href=\"??page=$previousPage\">Previous Page</a>";
+        }
+        ?>
         <div class="image-wrapper">
             <?php
             if (!empty($data["imageData"])) {
                 foreach ($data["imageData"] as $image) {
                     $watermarkedFilename = "watermarked" . $image["filename"];
                     $miniaturedFilename = "miniature" . $image["filename"];
-                    echo "<a class='imagelink' href='/images/watermarks/$watermarkedFilename'><img class='image' src=\"/images/miniatures/$miniaturedFilename\" alt=\"image\"></a>";
+                    $imageName = $image["name"];
+                    echo "<a class='imagelink' href='/images/watermarks/$watermarkedFilename'><img class='image' src=\"/images/miniatures/$miniaturedFilename\" alt=\"$imageName\"></a>";
                 }
             }
             ?>

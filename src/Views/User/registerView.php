@@ -12,14 +12,14 @@
 <div class="wrapper">
     <div class="header">
 
-        <a class="gallery-name" href="http://192.168.56.10:8080/">
+        <a class="gallery-name" href="/">
             Image Gallery
         </a>
 
         <div class="btn-wrapper">
-            <a class="btn btn-primary" href="http://192.168.56.10:8080/images/upload">Upload File</a>
-            <a class="btn btn-primary" href="http://192.168.56.10:8080/user/register">Register</a>
-            <a class="btn btn-primary" href="http://192.168.56.10:8080/user/login">Login in</a>
+            <a class="btn btn-primary" href="/images/upload">Upload File</a>
+            <a class="btn btn-primary" href="/user/register">Register</a>
+            <a class="btn btn-primary" href="/user/login">Login in</a>
         </div>
     </div>
     <div class="content">

@@ -14,12 +14,13 @@ class MainController extends AbstractController
         $pagingSize = 28;
         $imagesArray = $this->repository->downloadAllImages();
         $page = substr($this->data["parameters"], 6);
+        $maxPages = ceil(count($imagesArray) / $pagingSize);
         if (empty($page)) {
-            $page = 1;
+            $page = "1";
         }
         $helperArray = [];
-        $firstImageToShow = ($page - 1) * 28;
-        $lastImageToShow = $page * 28 - 1;
+        $firstImageToShow = ($page - 1) * $pagingSize;
+        $lastImageToShow = $page * $pagingSize - 1;
         for ($i = $firstImageToShow; $i <= $lastImageToShow; $i++) {
             if (empty($imagesArray[$i])) {
                 break;
@@ -27,7 +28,8 @@ class MainController extends AbstractController
             array_push($helperArray, $imagesArray[$i]);
         }
         $imagesArray = $helperArray;
-        $this->view('index', ["imageData" => $imagesArray, "currentPage" => $page]);
+        $pageInfo = ["page" => $page, "maxPages" => $maxPages];
+        $this->view('index', ["imageData" => $imagesArray, "pageInfo" => $pageInfo]);
     }
 
     public function pageNotFound()

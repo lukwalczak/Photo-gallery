@@ -12,19 +12,21 @@
 <div class="wrapper">
     <div class="header">
 
-        <a class="gallery-name" href="http://192.168.56.10:8080/">
+        <a class="gallery-name" href="/">
             Image Gallery
         </a>
 
         <div class="btn-wrapper">
-            <a class="btn btn-primary" href="http://192.168.56.10:8080/images/upload">Upload File</a>
-            <a class="btn btn-primary" href="http://192.168.56.10:8080/user/register">Register</a>
-            <a class="btn btn-primary" href="http://192.168.56.10:8080/user/login">Login in</a>
+            <a class="btn btn-primary" href="/images/upload">Upload File</a>
+            <a class="btn btn-primary" href="/user/register">Register</a>
+            <a class="btn btn-primary" href="/user/login">Login in</a>
         </div>
     </div>
     <div class="content">
         <form method="POST" enctype="multipart/form-data">
             <input type="file" name="upfile" accept="image/*"/>
+            <input type="text" name="title"/>
+            <!--            TO DO TITLE OF IMAGE-->
             <input type="text" name="watermarkText"/>
             <button type="submit" name="save" class="btn">WYSLIJ</button>
         </form>

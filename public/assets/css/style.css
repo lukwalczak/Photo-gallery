@@ -30,7 +30,10 @@
 }
 
 .btn-secondary {
-    color: #073b4c;
+    height: 20px;
+    color: #FFF;
+    border: none;
+    background-color: #073b4c;
 }
 
 .btn-wrapper {
