@@ -125,7 +125,7 @@ class ImagesController extends AbstractController
     {
         $srcDir = dirname(__DIR__, 2) . "/public/images";
         $targetDir = dirname(__DIR__, 2) . "/public/images/watermarks";
-        $targetImagePath = sprintf("%s/%s.miniature.%s", $targetDir, $srcName, $ext);
+        $targetImagePath = sprintf("%s/watermarked%s.%s", $targetDir, $srcName, $ext);
         $srcImagePath = sprintf("%s/%s.%s", $srcDir, $srcName, $ext);
         $fontFile = dirname(__DIR__, 2) . "/public/assets/fonts/OpenSansRegular.ttf";
         $fontSize = 24;

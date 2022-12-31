@@ -73,15 +73,31 @@
     flex-wrap: wrap;
 }
 
-.image {
+.imagelink {
     width: 200px;
     height: 125px;
     margin: 1.5vw;
     border-radius: 1vh;
 }
 
+.image {
+    border-radius: 1vh;
+}
+
 .error {
     margin-top: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.searchbar {
+    margin-top: 3vh;
+    width: 15vw;
+
+}
+
+.searchbarwrapper {
     display: flex;
     align-items: center;
     justify-content: center;

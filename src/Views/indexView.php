@@ -23,13 +23,15 @@
         </div>
     </div>
     <div class="content">
-        <div class="searchbar"></div>
+        <div class="searchbarwrapper"><input class="searchbar" type="text"/></div>
+        <div class=""></div>
         <div class="image-wrapper">
             <?php
-            if (!empty($data)) {
-                foreach ($data as $image) {
-                    $filename = "miniature" . $image["filename"];
-                    echo "<img class='image' src=\"/images/miniatures/$filename\" alt=\"image\">";
+            if (!empty($data["imageData"])) {
+                foreach ($data["imageData"] as $image) {
+                    $watermarkedFilename = "watermarked" . $image["filename"];
+                    $miniaturedFilename = "miniature" . $image["filename"];
+                    echo "<a class='imagelink' href='/images/watermarks/$watermarkedFilename'><img class='image' src=\"/images/miniatures/$miniaturedFilename\" alt=\"image\"></a>";
                 }
             }
             ?>

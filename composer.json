@@ -3,6 +3,7 @@
     "mongodb/mongodb": "^1.1",
     "ext-mongodb": "*",
     "ext-fileinfo": "*",
-    "ext-gd": "*"
+    "ext-gd": "*",
+    "ext-yaml": "*"
   }
 }
