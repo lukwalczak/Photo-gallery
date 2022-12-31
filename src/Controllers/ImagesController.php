@@ -51,7 +51,7 @@ class ImagesController extends AbstractController
                 throw new \RuntimeException('Invalid file format.');
             }
             //file name on server gets randomized using random and sha encoding
-            $filename = sha1_file($_FILES['upfile']['tmp_name']);
+            $filename = sha1_file($_FILES['upfile']['tmp_name']) . rand(0, 1000);
             if (!move_uploaded_file($_FILES['upfile']['tmp_name'], sprintf('%s/%s.%s', $targetDir, $filename, $ext)
             )) {
                 throw new \RuntimeException('Failed to move uploaded file.');
@@ -66,6 +66,8 @@ class ImagesController extends AbstractController
         } else {
             $name = substr($_FILES["upfile"]["tmp_name"], 5);
         }
+        var_dump($this->data["author"]);
+        var_dump($this->data["private"]);
         $privacy = false;
         $author = "anonymous";
         $image = parent::model("Image");
@@ -91,8 +93,6 @@ class ImagesController extends AbstractController
             $this->addWatermark($filename, $ext, $watermarkText);
         }
         $this->view($this->viewPath . "upload", new Response(201, []));
-
-
     }
 
     private function check_file_uploaded_name(string $filename): bool

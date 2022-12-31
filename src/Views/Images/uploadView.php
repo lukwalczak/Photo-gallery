@@ -19,16 +19,32 @@
 
         <div class="btn-wrapper">
             <a class="btn btn-primary" href="/images/upload">Upload File</a>
-            <a class="btn btn-primary" href="/user/register">Register</a>
-            <a class="btn btn-primary" href="/user/login">Login in</a>
+            <?php
+            if (empty($_SESSION["logged"]) || $_SESSION["logged"] == false) {
+                echo "<a class=\"btn btn-primary\" href=\"/user/register\">Register</a>
+                      <a class=\"btn btn-primary\" href=\"/user/login\">Login in</a>";
+            } else {
+                echo "<a class=\"btn btn-primary\" href=\"/user/logout\">Logout</a>";
+            }
+            ?>
         </div>
     </div>
     <div class="content">
         <form method="POST" enctype="multipart/form-data">
+            <span>image file</span>
             <input type="file" name="upfile" accept="image/*"/>
+            <span>title</span>
             <input type="text" name="title"/>
-            <!--            TO DO TITLE OF IMAGE-->
+            <span>author</span>
+            <input type="text" name="author"/>
+            <span>Watermark Text</span>
             <input type="text" name="watermarkText"/>
+            <?php
+            if (!empty($_SESSION["logged"]) && $_SESSION["logged"] == true) {
+                echo "<span>Set image as private</span>
+                      <input type=\"checkbox\" name=\"private\" value='true'/>";
+            }
+            ?>
             <button type="submit" name="save" class="btn">WYSLIJ</button>
         </form>
     </div>

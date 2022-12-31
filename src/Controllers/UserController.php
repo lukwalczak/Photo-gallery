@@ -62,6 +62,18 @@ class UserController extends AbstractController
         }
         $_SESSION["user"] = $user;
         $_SESSION["logged"] = true;
-        $this->view($this->viewPath . 'login', new Response(201, []));
+        header('Location: ' . '/');
+    }
+
+    public function logout(): void
+    {
+        if (empty($_SESSION["logged"]) || $_SESSION["logged"] == false) {
+            header('Location: ' . '/');
+            return;
+        }
+        $_SESSION["logged"] = false;
+        $_SESSION["user"] = "";
+        header('Location: ' . '/');
+        session_destroy();
     }
 }

@@ -19,8 +19,15 @@
 
         <div class="btn-wrapper">
             <a class="btn btn-primary" href="/images/upload">Upload File</a>
-            <a class="btn btn-primary" href="/user/register">Register</a>
-            <a class="btn btn-primary" href="/user/login">Login in</a>
+            <?php
+            if (empty($_SESSION["logged"]) || $_SESSION["logged"] == false) {
+                echo " 
+                    <a class=\"btn btn-primary\" href=\"/user/register\">Register</a>
+                    <a class=\"btn btn-primary\" href=\"/user/login\">Login in</a>";
+            } else {
+                echo "<a class=\"btn btn-primary\" href=\"/user/logout\">Logout</a>";
+            }
+            ?>
         </div>
     </div>
     <div class="content">
