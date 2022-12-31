@@ -48,8 +48,15 @@
                 foreach ($response->getData()["imageData"] as $image) {
                     $watermarkedFilename = "watermarked" . $image["filename"];
                     $miniaturedFilename = "miniature" . $image["filename"];
-                    $imageName = $image["name"];
-                    echo "<a class='imagelink' href='/images/watermarks/$watermarkedFilename'><img class='image' src=\"/images/miniatures/$miniaturedFilename\" alt=\"$imageName\"></a>";
+                    $imageTitle = $image["name"];
+                    $imageAuthor = $image["author"];
+                    echo "<div>
+                            <a class='imagelink' href='/images/watermarks/$watermarkedFilename'>
+                                <img class='image' src=\"/images/miniatures/$miniaturedFilename\" alt=\"$imageTitle\">
+                            </a>
+                            <span>Title: $imageTitle</span>
+                            <span>Author: $imageAuthor</span>
+                          </div>";
                 }
             }
             ?>

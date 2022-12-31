@@ -35,6 +35,12 @@ class ImagesController extends AbstractController
             } else {
                 $this->data["private"] = true;
             }
+
+            if ($this->check_file_uploaded_name($this->data["title"])) {
+                $name = $this->data["title"];
+            } else {
+                throw new \RuntimeException("Invalid characters in title");
+            }
             //checks if any errors occured during uploading
             switch ($_FILES['upfile']['error']) {
                 case UPLOAD_ERR_OK:
@@ -73,11 +79,6 @@ class ImagesController extends AbstractController
         } catch (\RuntimeException $e) {
             $this->view($this->viewPath . "upload", new Response(400, ["error" => $e->getMessage()]));
             return;
-        }
-        if ($this->check_file_uploaded_name($_FILES["upfile"]["name"])) {
-            $name = substr($_FILES["upfile"]["name"], 0, -4);
-        } else {
-            $name = substr($_FILES["upfile"]["tmp_name"], 5);
         }
         $image = parent::model("Image");
         $image->setName($name)
