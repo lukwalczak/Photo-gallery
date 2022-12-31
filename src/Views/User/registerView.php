@@ -1,3 +1,4 @@
+<?php header('X-PHP-Response-Code: 404', true, $response->getStatusCode()); ?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -23,9 +24,11 @@
         </div>
     </div>
     <div class="content">
-        <?php if (!empty($data["response"])) {
-            echo $data["response"];
-        } ?>
+        <?php
+        if ($response->getStatusCode() == 400) {
+            echo "something went wrong";
+        }
+        ?>
         <form method="POST">
             <input type="text" name="username"/>
             <input type="email" name="email"/>

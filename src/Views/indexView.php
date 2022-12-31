@@ -1,3 +1,4 @@
+<?php header('X-PHP-Response-Code: 404', true, $response->getStatusCode()); ?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -25,9 +26,9 @@
     <div class="content">
         <div class="searchbarwrapper"><input class="searchbar" type="text"/></div>
         <?php
-        $nextPage = $data["pageInfo"]["page"] + 1;
-        $previousPage = $data["pageInfo"]["page"] - 1;
-        if ($data["pageInfo"]["maxPages"] != $data["pageInfo"]["page"]) {
+        $nextPage = $response->getData()["pageInfo"]["page"] + 1;
+        $previousPage = $response->getData()["pageInfo"]["page"] - 1;
+        if ($response->getData()["pageInfo"]["maxPages"] != $response->getData()["pageInfo"]["page"]) {
             echo "<a class=\"btn btn-secondary\" href=\"??page=$nextPage\">Next Page</a>";
         }
         if ($previousPage > 0) {
@@ -36,8 +37,8 @@
         ?>
         <div class="image-wrapper">
             <?php
-            if (!empty($data["imageData"])) {
-                foreach ($data["imageData"] as $image) {
+            if (!empty($response->getData()["imageData"])) {
+                foreach ($response->getData()["imageData"] as $image) {
                     $watermarkedFilename = "watermarked" . $image["filename"];
                     $miniaturedFilename = "miniature" . $image["filename"];
                     $imageName = $image["name"];

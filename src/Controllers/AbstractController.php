@@ -3,16 +3,31 @@ declare(strict_types=1);
 
 namespace Controllers;
 
+use Core\Response as Response;
+
 abstract class AbstractController
 {
-    public $data;
+    protected $response;
 
     protected $repository;
 
-    public function __construct($data = [], $repository = "")
+    protected $data;
+
+    public function __construct($data, $repository = "")
     {
-        $this->data = $data;
         $this->repository = $repository;
+        $this->data = $data;
+        $this->response = new Response();
+    }
+
+    public function getResponse()
+    {
+        return $this->response;
+    }
+
+    public function setResponse($response): void
+    {
+        $this->response = $response;
     }
 
     public function getData()
@@ -33,7 +48,7 @@ abstract class AbstractController
         return $modelObj;
     }
 
-    public function view($view, $data = [])
+    public function view($view, $response)
     {
         require_once dirname(__DIR__) . "/Views/" . $view . "View.php";
     }

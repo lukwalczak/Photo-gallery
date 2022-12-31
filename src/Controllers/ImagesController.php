@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Controllers;
 
+use Core\Response;
+
 class ImagesController extends AbstractController
 {
 
@@ -10,14 +12,17 @@ class ImagesController extends AbstractController
 
     public function upload()
     {
+        // dir to save images to
         $targetDir = dirname(__DIR__, 2) . "/public/images";
         try {
+            //checks if any errors occured or if file is empty
             if (
                 !isset($_FILES["upfile"]["error"]) ||
                 is_array($_FILES["upfile"]["error"])
             ) {
                 throw new \RuntimeException("Invalid parameters");
             }
+            //checks if any errors occured during uploading
             switch ($_FILES['upfile']['error']) {
                 case UPLOAD_ERR_OK:
                     break;
@@ -29,9 +34,11 @@ class ImagesController extends AbstractController
                 default:
                     throw new \RuntimeException('Unknown errors.');
             }
+            //checks if the file does not exceed 1M
             if ($_FILES['upfile']['size'] > 1048576) {
                 throw new \RuntimeException('Exceeded filesize limit.');
             }
+            //checking MIME type
             $finfo = new \finfo(FILEINFO_MIME_TYPE);
             if (false === $ext = array_search(
                     $finfo->file($_FILES['upfile']['tmp_name']),
@@ -43,6 +50,7 @@ class ImagesController extends AbstractController
                 )) {
                 throw new \RuntimeException('Invalid file format.');
             }
+            //file name on server gets randomized using random and sha encoding
             $filename = sha1_file($_FILES['upfile']['tmp_name']);
             if (!move_uploaded_file($_FILES['upfile']['tmp_name'], sprintf('%s/%s.%s', $targetDir, $filename, $ext)
             )) {
@@ -50,7 +58,7 @@ class ImagesController extends AbstractController
             }
 
         } catch (\RuntimeException $e) {
-            $this->view($this->viewPath . "upload", $e->getMessage());
+            $this->view($this->viewPath . "upload", new Response(400, ["error" => $e->getMessage()]));
             return;
         }
         if ($this->check_file_uploaded_name($_FILES["upfile"]["name"])) {
@@ -68,11 +76,11 @@ class ImagesController extends AbstractController
             ->setExt($ext);
         try {
             if (!$this->repository->uploadImage($image)) {
-                $this->view($this->viewPath . "upload", ["error" => "something went wrong"]);
+                $this->view($this->viewPath . "upload", new Response(400, ["error" => "something went wrong"]));
                 return;
             }
         } catch (\Exception $e) {
-            $this->view($this->viewPath . "upload", ["error" => "something went wrong"]);
+            $this->view($this->viewPath . "upload", new Response(400, ["error" => $e->getMessage()]));
             return;
         }
         $this->addMinature($filename, $ext);
@@ -82,7 +90,7 @@ class ImagesController extends AbstractController
         } else {
             $this->addWatermark($filename, $ext, $watermarkText);
         }
-        $this->view($this->viewPath . "upload", ["message" => "file uploaded correctly"]);
+        $this->view($this->viewPath . "upload", new Response(201, []));
 
 
     }

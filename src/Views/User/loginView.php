@@ -1,3 +1,4 @@
+<?php header('X-PHP-Response-Code: 404', true, $response->getStatusCode()); ?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -23,6 +24,11 @@
         </div>
     </div>
     <div class="content">
+        <?php
+        if ($response->getStatusCode() == 400 || $response->getStatusCode() == 503) {
+            echo "something went wrong";
+        }
+        ?>
         <form method="POST">
             <input type="text" name="username"/>
             <input type="password" name="password"/>
