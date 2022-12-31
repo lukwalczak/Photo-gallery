@@ -46,6 +46,9 @@
             <label>
                 <input type="password" name="password"/>Password
             </label>
+            <label>
+                <input type="password" name="passwordRepeat"/>Repeat password
+            </label>
             <button type="submit" class="btn">WYSLIJ</button>
         </form>
     </div>

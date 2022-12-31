@@ -16,7 +16,11 @@ class UserController extends AbstractController
             $this->view($this->viewPath . 'register', new Response(200, []));
             return;
         }
-        if (empty($this->data["username"]) || empty($this->data["email"]) || empty($this->data["password"])) {
+        if (empty($this->data["username"]) || empty($this->data["email"]) || empty($this->data["password"]) || empty($this->data["passwordRepeat"])) {
+            $this->view($this->viewPath . 'register', new Response(400, []));
+            return;
+        }
+        if ($this->data["password"] != $this->data["passwordRepeat"]) {
             $this->view($this->viewPath . 'register', new Response(400, []));
             return;
         }

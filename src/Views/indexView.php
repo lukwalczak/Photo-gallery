@@ -50,12 +50,17 @@
                     $miniaturedFilename = "miniature" . $image["filename"];
                     $imageTitle = $image["name"];
                     $imageAuthor = $image["author"];
+                    $imagePrivacy = "";
+                    if ($image["privacy"] == true) {
+                        $imagePrivacy = "<span>This image is private</span>";
+                    }
                     echo "<div>
                             <a class='imagelink' href='/images/watermarks/$watermarkedFilename'>
                                 <img class='image' src=\"/images/miniatures/$miniaturedFilename\" alt=\"$imageTitle\">
                             </a>
                             <span>Title: $imageTitle</span>
                             <span>Author: $imageAuthor</span>
+                            $imagePrivacy
                           </div>";
                 }
             }
