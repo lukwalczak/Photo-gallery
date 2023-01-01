@@ -1,12 +1,12 @@
 index:
-  path: ""
+  path: '/^\/$|^(\/\?[^\/]*)$/'
   controller: MainController
   repository: ""
 user:
-  path: "user"
+  path: '/^((\/user)|(\/user\?.*)|(\/user\/(?P<action>[-a-z]*)(\?.*)?))$/'
   controller: UserController
   repository: UserRepository
 images:
-  path: "images"
+  path: '/^((\/images)|(\/images\?.*)|(\/images\/(?P<action>[-a-z]*)(\?.*)?))$/'
   controller: ImagesController
   repository: ImagesRepository

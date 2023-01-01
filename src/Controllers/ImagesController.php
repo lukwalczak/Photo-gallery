@@ -104,6 +104,11 @@ class ImagesController extends AbstractController
         $this->view($this->viewPath . "upload", new Response(201, []));
     }
 
+    public function saved()
+    {
+        $this->view($this->viewPath . "saved", new Response(200, []));
+    }
+
     private function check_file_uploaded_name(string $filename): bool
     {
         return ((preg_match("`^[-0-9A-Z_\.]+$`i", $filename)) ? true : false);

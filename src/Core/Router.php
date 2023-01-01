@@ -15,7 +15,7 @@ class Router
 
     private static $instances = [];
 
-    private const urlRegex = "/^(?P<controller>$|\s+|[-a-z]+)?[\\/]*(?P<action>[-a-z]+)?[\\/]*(?P<parameters>.*)$/";
+//    private const urlRegex = "/^(?P<controller>$|\s+|[-a-z]+)?[\\/]*(?P<action>[-a-z]+)?[\\/]*(?P<parameters>.*)$/";
 
     public function __construct()
     {
@@ -63,18 +63,15 @@ class Router
 
     public function matchURL(string $targetRoute): bool
     {
-        if (preg_match(self::urlRegex, $targetRoute, $output)) {
-            $output = $this->dropNumericKeys($output);
-            foreach ($this->getRouteTable() as $route) {
-                if (empty($output["controller"]) || $route["path"] == $output["controller"]) {
-                    $output["controller"] = $route["controller"];
-                    $output["repository"] = $route["repository"];
-                    $this->setParameters($output);
-                    if ($this->parameters["action"] == "") {
-                        $this->parameters["action"] = "index";
-                    }
-                    return true;
+        foreach ($this->getRouteTable() as $route) {
+            if (preg_match($route["path"], $targetRoute, $output)) {
+                $output["controller"] = $route["controller"];
+                $output["repository"] = $route["repository"];
+                $this->setParameters($output);
+                if (empty($this->parameters["action"]) || $this->parameters["action"] == "") {
+                    $this->parameters["action"] = "index";
                 }
+                return true;
             }
         }
         return false;
@@ -101,7 +98,7 @@ class Router
         }
         $action = $this->parameters["action"];
         if ($_SERVER["REQUEST_METHOD"] == "GET") {
-            $controllerObj = new $controller($this->parameters, $repositoryObj);
+            $controllerObj = new $controller($_GET, $repositoryObj);
             $controllerObj->$action();
         } elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
             $controllerObj = new $controller($_POST, $repositoryObj);
@@ -113,7 +110,7 @@ class Router
 
     public function pageNotFoundDispatch(): void
     {
-        $controller = new MainController;
+        $controller = new MainController([]);
         $controller->pageNotFound();
     }
 

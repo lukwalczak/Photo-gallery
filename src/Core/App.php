@@ -15,7 +15,7 @@ class App
     public function startApp()
     {
         session_start();
-        $this->router->dispatch($_SERVER["QUERY_STRING"]);
+        $this->router->dispatch($_SERVER["REQUEST_URI"]);
     }
 
 }

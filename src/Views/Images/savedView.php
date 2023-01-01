@@ -18,13 +18,11 @@
         </a>
 
         <div class="btn-wrapper">
-            <a class="btn btn-primary" href="/images/saved">Saved Images</a>
             <a class="btn btn-primary" href="/images/upload">Upload File</a>
             <?php
             if (empty($_SESSION["logged"]) || $_SESSION["logged"] == false) {
-                echo " 
-                    <a class=\"btn btn-primary\" href=\"/user/register\">Register</a>
-                    <a class=\"btn btn-primary\" href=\"/user/login\">Login in</a>";
+                echo "<a class=\"btn btn-primary\" href=\"/user/register\">Register</a>
+                      <a class=\"btn btn-primary\" href=\"/user/login\">Login in</a>";
             } else {
                 echo "<a class=\"btn btn-primary\" href=\"/user/logout\">Logout</a>";
             }
@@ -32,18 +30,7 @@
         </div>
     </div>
     <div class="content">
-        <div class="searchbarwrapper"><input class="searchbar" type="text"/></div>
-        <?php
-        $nextPage = $response->getData()["pageInfo"]["page"] + 1;
-        $previousPage = $response->getData()["pageInfo"]["page"] - 1;
-        if ($response->getData()["pageInfo"]["maxPages"] != $response->getData()["pageInfo"]["page"]) {
-            echo "<a class=\"btn btn-secondary\" href=\"?page=$nextPage\">Next Page</a>";
-        }
-        if ($previousPage > 0) {
-            echo "<a class=\"btn btn-secondary\" href=\"?page=$previousPage\">Previous Page</a>";
-        }
-        ?>
-        <form class="image-wrapper" method="GET">
+        <div class="image-wrapper">
             <?php
             if (!empty($response->getData()["imageData"])) {
                 foreach ($response->getData()["imageData"] as $image) {
@@ -63,7 +50,7 @@
                                 <span>Title: $imageTitle</span><br/>
                                 <span>Author: $imageAuthor</span><br/>
                                 <label>
-                                    <input type=\"checkbox\" name=\"asd\" value=\"$miniaturedFilename\">
+                                    <input type=\"checkbox\" value=\"$miniaturedFilename\">
                                 </label><br/>
                                 $imagePrivacy
                             </div>
@@ -71,8 +58,11 @@
                 }
             }
             ?>
-            <button type="submit" class="btn">Save images</button>
-        </form>
+        </div>
+        <?php
+        if (isset($response->getData()["error"]))
+            echo $response->getData()["error"];
+        ?>
     </div>
 </div>
 </body>

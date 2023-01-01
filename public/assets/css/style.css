@@ -130,3 +130,10 @@
 .form-input .btn {
     margin: 1vh;
 }
+
+.content-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
