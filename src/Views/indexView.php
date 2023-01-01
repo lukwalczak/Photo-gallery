@@ -43,10 +43,11 @@
             echo "<a class=\"btn btn-secondary\" href=\"?page=$previousPage\">Previous Page</a>";
         }
         ?>
-        <form class="image-wrapper" method="GET">
+        <form class="image-wrapper" method="POST">
             <?php
             if (!empty($response->getData()["imageData"])) {
-                foreach ($response->getData()["imageData"] as $image) {
+                foreach ($response->getData()["imageData"] as $index => $image) {
+                    $filename = $image["filename"];
                     $watermarkedFilename = "watermarked" . $image["filename"];
                     $miniaturedFilename = "miniature" . $image["filename"];
                     $imageTitle = $image["name"];
@@ -63,7 +64,7 @@
                                 <span>Title: $imageTitle</span><br/>
                                 <span>Author: $imageAuthor</span><br/>
                                 <label>
-                                    <input type=\"checkbox\" name=\"asd\" value=\"$miniaturedFilename\">
+                                    <input type=\"checkbox\" name=\"$index\" value=\"$filename\">
                                 </label><br/>
                                 $imagePrivacy
                             </div>

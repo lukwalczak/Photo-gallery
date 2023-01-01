@@ -106,6 +106,10 @@ class ImagesController extends AbstractController
 
     public function saved()
     {
+        if (empty($_SESSION["savedImages"])) {
+            $this->view($this->viewPath . "saved", new Response(200, []));
+            return;
+        }
         $this->view($this->viewPath . "saved", new Response(200, []));
     }
 

@@ -11,6 +11,14 @@ class MainController extends AbstractController
 
     public function index()
     {
+        if ($_SERVER["REQUEST_METHOD"] == "POST" & !empty($this->data)) {
+            foreach ($this->data as $index => $image) {
+                if (!array_search($image, $_SESSION["savedImages"])) {
+                    array_push($_SESSION["savedImages"], $image);
+                }
+            }
+            var_dump($_SESSION["savedImages"]);
+        }
         $this->repository = new ImagesRepository();
         $pagingSize = 10;
 
