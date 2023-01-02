@@ -27,7 +27,7 @@ class ImagesController extends AbstractController
                 empty($this->data["watermarkText"]) ||
                 empty($this->data["author"])
             ) {
-                throw new \RuntimeException("Invalid parameters");
+                throw new \RuntimeException("All fields are required");
             }
 
             if (empty($this->data["private"]) || $this->data["private"] == "false") {
@@ -77,11 +77,11 @@ class ImagesController extends AbstractController
             }
 
         } catch (\RuntimeException $e) {
-            $this->view($this->viewPath . "upload", new Response(400, ["error" => $e->getMessage()]));
+            $this->view($this->viewPath . "upload", new Response(503, ["error" => $e->getMessage()]));
             return;
         }
         $image = parent::model("Image");
-        $image->setName($title)
+        $image->setTitle($title)
             ->setFilename($filename . "." . $ext)
             ->setAuthor($this->data["author"])
             ->setPrivacy($this->data["private"])
@@ -132,7 +132,17 @@ class ImagesController extends AbstractController
 
     public function searchByTitle(): void
     {
-
+        if ($_SERVER["REQUEST_METHOD"] == "POST" & !empty($this->data)) {
+            foreach ($this->data as $image) {
+                if (empty($_SESSION["savedImages"])) {
+                    $_SESSION["savedImages"] = [];
+                    array_push($_SESSION["savedImages"], $image);
+                }
+                if (!in_array($image, $_SESSION["savedImages"])) {
+                    array_push($_SESSION["savedImages"], $image);
+                }
+            }
+        }
         $this->view($this->viewPath . "searchByTitle", new Response(200, []));
     }
 

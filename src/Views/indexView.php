@@ -55,7 +55,7 @@
                         $filename = $image["filename"];
                         $watermarkedFilename = "watermarked" . $image["filename"];
                         $miniaturedFilename = "miniature" . $image["filename"];
-                        $imageTitle = $image["name"];
+                        $imageTitle = $image["title"];
                         $imageAuthor = $image["author"];
                         $imagePrivacy = "";
                         if ($image["privacy"] == true) {
@@ -66,8 +66,8 @@
                                 <img class='image' src=\"/images/miniatures/$miniaturedFilename\" alt=\"$imageTitle\">
                             </a>
                             <div class='image-text'>
-                                <span>Title: $imageTitle</span><br/>
-                                <span>Author: $imageAuthor</span><br/>
+                                <span>Title: $imageTitle</span>
+                                <span>Author: $imageAuthor</span>
                                 <label>
                                     <input type=\"checkbox\" name=\"$index\" value=\"$filename\"> Click to save image
                                 </label>

@@ -12,7 +12,7 @@ class MainController extends AbstractController
     public function index()
     {
         $this->repository = new ImagesRepository();
-        $pagingSize = 9;
+        $pagingSize = 12;
 
         $imagesArray = $this->repository->downloadAllImages();
         //if there are no images return empty

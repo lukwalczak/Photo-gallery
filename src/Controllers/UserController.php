@@ -17,15 +17,15 @@ class UserController extends AbstractController
             return;
         }
         if (empty($this->data["username"]) || empty($this->data["email"]) || empty($this->data["password"]) || empty($this->data["passwordRepeat"])) {
-            $this->view($this->viewPath . 'register', new Response(400, []));
+            $this->view($this->viewPath . 'register', new Response(400, ["error" => "All fields are required"]));
             return;
         }
         if ($this->data["password"] != $this->data["passwordRepeat"]) {
-            $this->view($this->viewPath . 'register', new Response(400, []));
+            $this->view($this->viewPath . 'register', new Response(400, ["error" => "Passwords do not match"]));
             return;
         }
         if ($this->repository->getUserByName($this->data["username"])) {
-            $this->view($this->viewPath . 'register', new Response(400, []));
+            $this->view($this->viewPath . 'register', new Response(400, ["error" => "User exists"]));
             return;
         }
         $username = $this->data["username"];
@@ -35,7 +35,7 @@ class UserController extends AbstractController
         $user = parent::model("User");
         $user->setProperties($username, $email, $passwordHash);
         if (!$this->repository->addUser($user)) {
-            $this->view($this->viewPath . 'register', new Response(400, []));
+            $this->view($this->viewPath . 'register', new Response(503, []));
             return;
         }
         $this->view($this->viewPath . 'register', new Response(201, []));

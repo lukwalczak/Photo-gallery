@@ -31,11 +31,6 @@
             } ?></div>
     </div>
     <div class="content">
-        <?php
-        if ($response->getStatusCode() == 400) {
-            echo "something went wrong";
-        }
-        ?>
         <form method="POST" class="form-input">
             <label>
                 <input type="text" name="username"/>Username
@@ -50,6 +45,11 @@
                 <input type="password" name="passwordRepeat"/>Repeat password
             </label>
             <button type="submit" class="btn btn-secondary btn-pages">Register</button>
+            <?php
+            if (!empty($response->getData()) & !empty($response->getData()["error"]) & ($response->getStatusCode() != 200 || $response->getStatusCode() != 201)) {
+                echo $response->getData()["error"];
+            }
+            ?>
         </form>
     </div>
 </div>

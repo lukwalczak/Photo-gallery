@@ -35,6 +35,7 @@ let fetchData = () => {
             const input = document.createElement("input");
             input.setAttribute("type", `checkbox`);
             input.setAttribute("value", `${image.filename}`);
+            input.setAttribute("name", `${image.filename}`);
             label.appendChild(input);
             imageText.appendChild(span1);
             imageText.appendChild(span2);

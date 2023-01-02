@@ -61,11 +61,11 @@
             }
             ?>
             <button type="submit" name="save" class="btn btn-secondary btn-pages">Upload</button>
+            <?php
+            if (isset($response->getData()["error"]))
+                echo $response->getData()["error"];
+            ?>
         </form>
-        <?php
-        if (isset($response->getData()["error"]))
-            echo $response->getData()["error"];
-        ?>
     </div>
 </div>
 </body>

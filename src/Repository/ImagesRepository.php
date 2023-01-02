@@ -48,7 +48,7 @@ class ImagesRepository extends AbstractRepository
         $image->setAuthor($dataObject[0]->author)
             ->setExt($dataObject[0]->ext)
             ->setFilename($dataObject[0]->filename)
-            ->setName($dataObject[0]->title)
+            ->setTitle($dataObject[0]->title)
             ->setPrivacy($dataObject[0]->privacy);
         return $image->toArray();
     }

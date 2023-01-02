@@ -35,7 +35,7 @@
         <div class="searchbar-wrapper">
             <input class="searchbar" type="text"/>
         </div>
-        <form class="form-content">
+        <form class="form-content" METHOD="POST">
             <div class="image-wrapper">
 
             </div>

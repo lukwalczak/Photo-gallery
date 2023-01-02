@@ -39,7 +39,7 @@
                         $filename = $image["filename"];
                         $watermarkedFilename = "watermarked" . $image["filename"];
                         $miniaturedFilename = "miniature" . $image["filename"];
-                        $imageTitle = $image["name"];
+                        $imageTitle = $image["title"];
                         $imageAuthor = $image["author"];
                         $imagePrivacy = "";
                         if ($image["privacy"] == true) {

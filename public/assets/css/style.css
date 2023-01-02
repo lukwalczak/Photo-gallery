@@ -150,12 +150,12 @@
 .image-text {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     width: 50%;
+    min-width: 10rem;
 }
 
 .image-div {
-    width: 33%;
     display: flex;
     justify-content: center;
 }
