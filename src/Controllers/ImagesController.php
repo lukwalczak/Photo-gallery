@@ -104,11 +104,23 @@ class ImagesController extends AbstractController
         $this->view($this->viewPath . "upload", new Response(201, []));
     }
 
-    public function saved()
+    public function saved(): void
     {
         if (empty($_SESSION["savedImages"])) {
             $this->view($this->viewPath . "saved", new Response(200, []));
             return;
+        }
+        if ($_SERVER["REQUEST_METHOD"] == "POST" & !empty($this->data)) {
+            if (is_array($this->data)) {
+                $_SESSION["savedImages"] = array_diff($_SESSION["savedImages"], $this->data);
+
+            } else {
+                foreach ($_SESSION["savedImages"] as $savedImage) {
+                    if ($key = array_search($savedImage, $this->data) !== false) {
+                        unset($_SESSION["savedImages"][$key]);
+                    }
+                }
+            }
         }
         $imagesArray = [];
         $pageInfo = 0;
@@ -117,6 +129,8 @@ class ImagesController extends AbstractController
         }
         $this->view($this->viewPath . "saved", new Response(200, ["imageData" => $imagesArray, "pageInfo" => $pageInfo]));
     }
+
+    
 
     private function check_file_uploaded_name(string $filename): bool
     {

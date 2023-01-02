@@ -11,18 +11,6 @@ class MainController extends AbstractController
 
     public function index()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST" & !empty($this->data)) {
-            foreach ($this->data as $image) {
-                if (empty($_SESSION["savedImages"])) {
-                    $_SESSION["savedImages"] = [];
-                    array_push($_SESSION["savedImages"], $image);
-                }
-                if (!in_array($image, $_SESSION["savedImages"])) {
-                    array_push($_SESSION["savedImages"], $image);
-                }
-            }
-            var_dump($_SESSION["savedImages"]);
-        }
         $this->repository = new ImagesRepository();
         $pagingSize = 10;
 
@@ -56,6 +44,18 @@ class MainController extends AbstractController
         }
         $imagesArray = $helperArray;
         $pageInfo = ["page" => $page, "maxPages" => $maxPages];
+        if ($_SERVER["REQUEST_METHOD"] == "POST" & !empty($this->data)) {
+            foreach ($this->data as $image) {
+                if (empty($_SESSION["savedImages"])) {
+                    $_SESSION["savedImages"] = [];
+                    array_push($_SESSION["savedImages"], $image);
+                }
+                if (!in_array($image, $_SESSION["savedImages"])) {
+                    array_push($_SESSION["savedImages"], $image);
+                }
+                $this->view('index', new Response(201, ["imageData" => $imagesArray, "pageInfo" => $pageInfo]));
+            }
+        }
         $this->view('index', new Response(200, ["imageData" => $imagesArray, "pageInfo" => $pageInfo]));
     }
 

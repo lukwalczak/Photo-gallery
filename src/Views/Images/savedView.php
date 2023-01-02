@@ -30,10 +30,11 @@
         </div>
     </div>
     <div class="content">
-        <div class="image-wrapper">
+        <form class="image-wrapper" method="POST">
             <?php
             if (!empty($response->getData()["imageData"])) {
-                foreach ($response->getData()["imageData"] as $image) {
+                foreach ($response->getData()["imageData"] as $index => $image) {
+                    $filename = $image["filename"];
                     $watermarkedFilename = "watermarked" . $image["filename"];
                     $miniaturedFilename = "miniature" . $image["filename"];
                     $imageTitle = $image["name"];
@@ -50,7 +51,7 @@
                                 <span>Title: $imageTitle</span><br/>
                                 <span>Author: $imageAuthor</span><br/>
                                 <label>
-                                    <input type=\"checkbox\" value=\"$miniaturedFilename\">
+                                    <input type=\"checkbox\" name=\"$index\" value=\"$filename\">
                                 </label><br/>
                                 $imagePrivacy
                             </div>
@@ -58,7 +59,8 @@
                 }
             }
             ?>
-        </div>
+            <button type="submit" class="btn">Forget Images</button>
+        </form>
         <?php
         if (isset($response->getData()["error"]))
             echo $response->getData()["error"];

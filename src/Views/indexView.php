@@ -72,7 +72,7 @@
                 }
             }
             ?>
-            <button type="submit" class="btn">Save images</button>
+            <button type="submit" class="btn">Remember images</button>
         </form>
     </div>
 </div>
