@@ -32,10 +32,15 @@
             } ?></div>
     </div>
     <div class="content">
-        <div class="searchbarwrapper"><input class="searchbar searchByTitle" type="text"/></div>
-        <div class="image-wrapper">
-
+        <div class="searchbar-wrapper">
+            <input class="searchbar" type="text"/>
         </div>
+        <form class="form-content">
+            <div class="image-wrapper">
+
+            </div>
+            <button type="submit" class="btn btn-secondary btn-pages">Remember images</button>
+        </form>
     </div>
 </div>
 </body>

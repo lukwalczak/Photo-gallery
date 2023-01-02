@@ -27,7 +27,7 @@ class ImagesRepository extends AbstractRepository
         }
         $imagesArray = [];
         foreach ($dataObject as $image) {
-            array_push($imagesArray, ["name" => $image->name, "filename" => $image->filename, "privacy" => $image->privacy, "author" => $image->author]);
+            array_push($imagesArray, ["title" => $image->title, "filename" => $image->filename, "privacy" => $image->privacy, "author" => $image->author]);
         }
         return $imagesArray;
     }
@@ -48,9 +48,9 @@ class ImagesRepository extends AbstractRepository
         $image->setAuthor($dataObject[0]->author)
             ->setExt($dataObject[0]->ext)
             ->setFilename($dataObject[0]->filename)
-            ->setName($dataObject[0]->name)
+            ->setName($dataObject[0]->title)
             ->setPrivacy($dataObject[0]->privacy);
         return $image->toArray();
     }
-    
+
 }

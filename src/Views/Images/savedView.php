@@ -1,4 +1,4 @@
-<?php header('X-PHP-Response-Code: 404', true, $response->getStatusCode()); ?>
+<?php header('X-PHP-Response-Code: ', true, $response->getStatusCode()); ?>
 <!doctype html>
 <html lang="en">
 <head>

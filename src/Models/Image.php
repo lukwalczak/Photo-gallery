@@ -5,20 +5,20 @@ namespace Models;
 
 class Image
 {
-    private $name;
+    private $title;
     private $author;
     private $privacy;
     private $filename;
     private $ext;
 
-    public function getName(): string
+    public function getTitle(): string
     {
-        return $this->name;
+        return $this->title;
     }
 
-    public function setName(string $name): self
+    public function setTitle(string $title): self
     {
-        $this->name = $name;
+        $this->title = $title;
         return $this;
     }
 
@@ -69,7 +69,7 @@ class Image
 
     public function toArray(): array
     {
-        return ["name" => $this->name, "filename" => $this->filename, "author" => $this->author, "privacy" => $this->privacy, "ext" => $this->ext];
+        return ["title" => $this->title, "filename" => $this->filename, "author" => $this->author, "privacy" => $this->privacy, "ext" => $this->ext];
     }
 
 }

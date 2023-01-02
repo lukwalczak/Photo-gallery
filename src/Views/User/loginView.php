@@ -43,7 +43,7 @@
             <label>
                 <input type="password" name="password"/> Password
             </label>
-            <button type="submit" class="btn">WYSLIJ</button>
+            <button type="submit" class="btn btn-secondary btn-pages">Log in</button>
         </form>
     </div>
 </div>

@@ -37,7 +37,7 @@ class ImagesController extends AbstractController
             }
 
             if ($this->check_file_uploaded_name($this->data["title"])) {
-                $name = $this->data["title"];
+                $title = $this->data["title"];
             } else {
                 throw new \RuntimeException("Invalid characters in title");
             }
@@ -81,7 +81,7 @@ class ImagesController extends AbstractController
             return;
         }
         $image = parent::model("Image");
-        $image->setName($name)
+        $image->setName($title)
             ->setFilename($filename . "." . $ext)
             ->setAuthor($this->data["author"])
             ->setPrivacy($this->data["private"])
@@ -132,6 +132,7 @@ class ImagesController extends AbstractController
 
     public function searchByTitle(): void
     {
+
         $this->view($this->viewPath . "searchByTitle", new Response(200, []));
     }
 
@@ -148,7 +149,7 @@ class ImagesController extends AbstractController
         }
         $imageFilenameArray = [];
         foreach ($imageArray as $image) {
-            if (preg_match("/.*" . $title . ".*/i", $image["name"])) {
+            if (preg_match("/.*" . $title . ".*/i", $image["title"])) {
                 if ($image["privacy"] == false) {
                     array_push($imageFilenameArray, $image);
                 } elseif ($image["privacy"] == true & !empty($_SESSION["logged"])) {

@@ -49,7 +49,7 @@
             <label>
                 <input type="password" name="passwordRepeat"/>Repeat password
             </label>
-            <button type="submit" class="btn">WYSLIJ</button>
+            <button type="submit" class="btn btn-secondary btn-pages">Register</button>
         </form>
     </div>
 </div>

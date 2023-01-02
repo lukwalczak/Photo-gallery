@@ -60,7 +60,7 @@
                       </label>";
             }
             ?>
-            <button type="submit" name="save" class="btn">WYSLIJ</button>
+            <button type="submit" name="save" class="btn btn-secondary btn-pages">Upload</button>
         </form>
         <?php
         if (isset($response->getData()["error"]))

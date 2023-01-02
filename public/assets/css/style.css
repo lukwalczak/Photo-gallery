@@ -122,9 +122,16 @@
 .content {
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
-    height: 92vh;
+    min-height: 92vh;
+    justify-content: space-between;
+}
+
+.content2 {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    min-height: 92vh;
 }
 
 .form-input .btn {
@@ -133,10 +140,11 @@
 
 .form-content {
     width: 100%;
-    height: 100%;
+    min-height: 82vh;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
 }
 
 .image-text {
@@ -166,4 +174,24 @@
 .btn:disabled {
     background-color: #737373;
     cursor: not-allowed;
+}
+
+.searchbar-wrapper {
+    width: 50%;
+    height: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+}
+
+.searchbar {
+    margin-top: 2vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 8vw;
+    min-width: 8rem;
+    font-size: 1rem;
 }

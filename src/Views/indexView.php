@@ -70,8 +70,8 @@
                                 <span>Author: $imageAuthor</span><br/>
                                 <label>
                                     <input type=\"checkbox\" name=\"$index\" value=\"$filename\"> Click to save image
-                                </label><br/>
-                                $imagePrivacy
+                                </label>
+                                <span>$imagePrivacy</span>
                             </div>
                           </div>";
                     }
