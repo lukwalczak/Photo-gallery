@@ -31,47 +31,54 @@
             } ?></div>
     </div>
     <div class="content">
-        <div class="searchbarwrapper"><input class="searchbar" type="text"/></div>
-        <?php
-        $nextPage = $response->getData()["pageInfo"]["page"] + 1;
-        $previousPage = $response->getData()["pageInfo"]["page"] - 1;
-        if ($response->getData()["pageInfo"]["maxPages"] != $response->getData()["pageInfo"]["page"]) {
-            echo "<a class=\"btn btn-secondary\" href=\"?page=$nextPage\">Next Page</a>";
-        }
-        if ($previousPage > 0) {
-            echo "<a class=\"btn btn-secondary\" href=\"?page=$previousPage\">Previous Page</a>";
-        }
-        ?>
-        <form class="image-wrapper" method="POST">
+        <div class="button-wrapper">
             <?php
-            if (!empty($response->getData()["imageData"])) {
-                foreach ($response->getData()["imageData"] as $index => $image) {
-                    $filename = $image["filename"];
-                    $watermarkedFilename = "watermarked" . $image["filename"];
-                    $miniaturedFilename = "miniature" . $image["filename"];
-                    $imageTitle = $image["name"];
-                    $imageAuthor = $image["author"];
-                    $imagePrivacy = "";
-                    if ($image["privacy"] == true) {
-                        $imagePrivacy = "<span>This image is private</span>";
-                    }
-                    echo "<div class='content-wrapper'>
+            $nextPage = $response->getData()["pageInfo"]["page"] + 1;
+            $previousPage = $response->getData()["pageInfo"]["page"] - 1;
+            if ($previousPage > 0) {
+                echo "<a class=\"btn btn-secondary btn-pages\" href=\"?page=$previousPage\">Previous Page</a>";
+            } else {
+                echo "<button class=\"btn btn-secondary btn-pages\" disabled>Previous Page</button>";
+            }
+            if ($response->getData()["pageInfo"]["maxPages"] != $response->getData()["pageInfo"]["page"]) {
+                echo "<a class=\"btn btn-secondary btn-pages\" href=\"?page=$nextPage\">Next Page</a>";
+            } else {
+                echo "<button class=\"btn btn-secondary btn-pages\" disabled>Next Page</button>";
+            }
+            ?>
+        </div>
+        <form class="form-content" method="POST">
+            <div class="image-wrapper">
+                <?php
+                if (!empty($response->getData()["imageData"])) {
+                    foreach ($response->getData()["imageData"] as $index => $image) {
+                        $filename = $image["filename"];
+                        $watermarkedFilename = "watermarked" . $image["filename"];
+                        $miniaturedFilename = "miniature" . $image["filename"];
+                        $imageTitle = $image["name"];
+                        $imageAuthor = $image["author"];
+                        $imagePrivacy = "";
+                        if ($image["privacy"] == true) {
+                            $imagePrivacy = "<span>This image is private</span>";
+                        }
+                        echo "<div class='image-div'>
                             <a class='imagelink' href='/images/watermarks/$watermarkedFilename'>
                                 <img class='image' src=\"/images/miniatures/$miniaturedFilename\" alt=\"$imageTitle\">
                             </a>
-                            <div>
+                            <div class='image-text'>
                                 <span>Title: $imageTitle</span><br/>
                                 <span>Author: $imageAuthor</span><br/>
                                 <label>
-                                    <input type=\"checkbox\" name=\"$index\" value=\"$filename\">
+                                    <input type=\"checkbox\" name=\"$index\" value=\"$filename\"> Click to save image
                                 </label><br/>
                                 $imagePrivacy
                             </div>
                           </div>";
+                    }
                 }
-            }
-            ?>
-            <button type="submit" class="btn">Remember images</button>
+                ?>
+            </div>
+            <button type="submit" class="btn btn-secondary btn-pages">Remember images</button>
         </form>
     </div>
 </div>

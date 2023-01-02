@@ -151,8 +151,10 @@ class ImagesController extends AbstractController
             if (preg_match("/.*" . $title . ".*/i", $image["name"])) {
                 if ($image["privacy"] == false) {
                     array_push($imageFilenameArray, $image);
-                } elseif ($image["privacy"] == true & !empty($_SESSION["logged"]) & $_SESSION["user"]->getUsername == $image["author"]) {
-                    array_push($imageFilenameArray, $image);
+                } elseif ($image["privacy"] == true & !empty($_SESSION["logged"])) {
+                    if ($_SESSION["user"]->getUsername() == $image["author"]) {
+                        array_push($imageFilenameArray, $image);
+                    }
                 }
             }
         }

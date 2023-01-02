@@ -31,41 +31,39 @@
             } ?></div>
     </div>
     <div class="content">
-        <form class="image-wrapper" method="POST">
-            <?php
-            if (!empty($response->getData()["imageData"])) {
-                foreach ($response->getData()["imageData"] as $index => $image) {
-                    $filename = $image["filename"];
-                    $watermarkedFilename = "watermarked" . $image["filename"];
-                    $miniaturedFilename = "miniature" . $image["filename"];
-                    $imageTitle = $image["name"];
-                    $imageAuthor = $image["author"];
-                    $imagePrivacy = "";
-                    if ($image["privacy"] == true) {
-                        $imagePrivacy = "<span>This image is private</span>";
-                    }
-                    echo "<div class='content-wrapper'>
+        <form class="form-content" method="POST">
+            <div class="image-wrapper">
+                <?php
+                if (!empty($response->getData()["imageData"])) {
+                    foreach ($response->getData()["imageData"] as $index => $image) {
+                        $filename = $image["filename"];
+                        $watermarkedFilename = "watermarked" . $image["filename"];
+                        $miniaturedFilename = "miniature" . $image["filename"];
+                        $imageTitle = $image["name"];
+                        $imageAuthor = $image["author"];
+                        $imagePrivacy = "";
+                        if ($image["privacy"] == true) {
+                            $imagePrivacy = "<span>This image is private</span>";
+                        }
+                        echo "<div class='image-div'>
                             <a class='imagelink' href='/images/watermarks/$watermarkedFilename'>
                                 <img class='image' src=\"/images/miniatures/$miniaturedFilename\" alt=\"$imageTitle\">
                             </a>
-                            <div>
+                            <div class='image-text'>
                                 <span>Title: $imageTitle</span><br/>
                                 <span>Author: $imageAuthor</span><br/>
                                 <label>
-                                    <input type=\"checkbox\" name=\"$index\" value=\"$filename\">
+                                    <input type=\"checkbox\" name=\"$index\" value=\"$filename\">Click to forget image
                                 </label><br/>
                                 $imagePrivacy
                             </div>
                           </div>";
+                    }
                 }
-            }
-            ?>
-            <button type="submit" class="btn">Forget Images</button>
+                ?>
+            </div>
+            <button type="submit" class="btn btn-secondary btn-pages">Forget Images</button>
         </form>
-        <?php
-        if (isset($response->getData()["error"]))
-            echo $response->getData()["error"];
-        ?>
     </div>
 </div>
 </body>
