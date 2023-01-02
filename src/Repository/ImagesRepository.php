@@ -31,4 +31,25 @@ class ImagesRepository extends AbstractRepository
         }
         return $imagesArray;
     }
+
+    public function getImageByFilename(string $filename)
+    {
+        $query = new Mongo\Query(["filename" => $filename]);
+        return $this->queryImage($query);
+    }
+
+    private function queryImage($query)
+    {
+        $dataObject = $this->mongoManager->executeQuery($this->imagesCollection, $query)->toArray();
+        if (!boolval($dataObject)) {
+            return false;
+        }
+        $image = new Models\Image();
+        $image->setAuthor($dataObject[0]->author)
+            ->setExt($dataObject[0]->ext)
+            ->setFilename($dataObject[0]->filename)
+            ->setName($dataObject[0]->name)
+            ->setPrivacy($dataObject[0]->privacy);
+        return $image->toArray();
+    }
 }

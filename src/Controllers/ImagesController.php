@@ -110,7 +110,12 @@ class ImagesController extends AbstractController
             $this->view($this->viewPath . "saved", new Response(200, []));
             return;
         }
-        $this->view($this->viewPath . "saved", new Response(200, []));
+        $imagesArray = [];
+        $pageInfo = 0;
+        foreach ($_SESSION["savedImages"] as $filename) {
+            array_push($imagesArray, $this->repository->getImageByFilename($filename));
+        }
+        $this->view($this->viewPath . "saved", new Response(200, ["imageData" => $imagesArray, "pageInfo" => $pageInfo]));
     }
 
     private function check_file_uploaded_name(string $filename): bool

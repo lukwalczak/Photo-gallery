@@ -12,8 +12,12 @@ class MainController extends AbstractController
     public function index()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST" & !empty($this->data)) {
-            foreach ($this->data as $index => $image) {
-                if (!array_search($image, $_SESSION["savedImages"])) {
+            foreach ($this->data as $image) {
+                if (empty($_SESSION["savedImages"])) {
+                    $_SESSION["savedImages"] = [];
+                    array_push($_SESSION["savedImages"], $image);
+                }
+                if (!in_array($image, $_SESSION["savedImages"])) {
                     array_push($_SESSION["savedImages"], $image);
                 }
             }
