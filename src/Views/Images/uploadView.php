@@ -18,16 +18,17 @@
         </a>
 
         <div class="btn-wrapper">
+            <a class="btn btn-primary" href="/images/searchByTitle">Search By Title</a>
+            <a class="btn btn-primary" href="/images/saved">Saved Images</a>
             <a class="btn btn-primary" href="/images/upload">Upload File</a>
             <?php
             if (empty($_SESSION["logged"]) || $_SESSION["logged"] == false) {
-                echo "<a class=\"btn btn-primary\" href=\"/user/register\">Register</a>
-                      <a class=\"btn btn-primary\" href=\"/user/login\">Login in</a>";
+                echo " 
+                        <a class=\"btn btn-primary\" href=\"/user/register\">Register</a>
+                        <a class=\"btn btn-primary\" href=\"/user/login\">Login in</a>";
             } else {
                 echo "<a class=\"btn btn-primary\" href=\"/user/logout\">Logout</a>";
-            }
-            ?>
-        </div>
+            } ?></div>
     </div>
     <div class="content">
         <form method="POST" enctype="multipart/form-data" class="form-input">

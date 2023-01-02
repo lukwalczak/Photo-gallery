@@ -52,4 +52,5 @@ class ImagesRepository extends AbstractRepository
             ->setPrivacy($dataObject[0]->privacy);
         return $image->toArray();
     }
+    
 }

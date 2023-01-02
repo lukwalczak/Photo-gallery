@@ -130,7 +130,34 @@ class ImagesController extends AbstractController
         $this->view($this->viewPath . "saved", new Response(200, ["imageData" => $imagesArray, "pageInfo" => $pageInfo]));
     }
 
-    
+    public function searchByTitle(): void
+    {
+        $this->view($this->viewPath . "searchByTitle", new Response(200, []));
+    }
+
+    public function search(): void
+    {
+        if ($_SERVER["REQUEST_METHOD"] != "GET") {
+            return;
+        }
+        $title = $_GET["title"];
+        $imageArray = $this->repository->downloadAllImages();
+        if (empty($imageArray)) {
+            echo "a";
+            return;
+        }
+        $imageFilenameArray = [];
+        foreach ($imageArray as $image) {
+            if (preg_match("/.*" . $title . ".*/i", $image["name"])) {
+                if ($image["privacy"] == false) {
+                    array_push($imageFilenameArray, $image);
+                } elseif ($image["privacy"] == true & !empty($_SESSION["logged"]) & $_SESSION["user"]->getUsername == $image["author"]) {
+                    array_push($imageFilenameArray, $image);
+                }
+            }
+        }
+        echo json_encode($imageFilenameArray);
+    }
 
     private function check_file_uploaded_name(string $filename): bool
     {

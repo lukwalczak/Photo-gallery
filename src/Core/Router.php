@@ -64,7 +64,7 @@ class Router
     public function matchURL(string $targetRoute): bool
     {
         foreach ($this->getRouteTable() as $route) {
-            if (preg_match($route["path"], $targetRoute, $output)) {
+            if (preg_match($route["path"] . "i", $targetRoute, $output)) {
                 $output["controller"] = $route["controller"];
                 $output["repository"] = $route["repository"];
                 $this->setParameters($output);

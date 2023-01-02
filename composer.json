@@ -4,6 +4,7 @@
     "ext-mongodb": "*",
     "ext-fileinfo": "*",
     "ext-gd": "*",
-    "ext-yaml": "*"
+    "ext-yaml": "*",
+    "ext-json": "*"
   }
 }
