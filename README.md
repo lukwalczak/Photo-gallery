@@ -1,2 +1,1 @@
-**Simple PHP Photo Gallery**
-
+*Simple PHP Photo Gallery*
